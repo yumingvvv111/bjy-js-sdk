@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>课件白板</title>
-    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.18/whiteboard/whiteboard.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.21/whiteboard/whiteboard.css">
     <style>
 
         #whiteboard {
@@ -24,8 +24,8 @@
     </div>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.18/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.18/whiteboard/whiteboard.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.21/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.21/whiteboard/whiteboard.js"></script>
     <script>
 
         BJY.init({
@@ -56,11 +56,13 @@
         .one(
             eventEmitter.VIEW_RENDER_TRIGGER,
             function (event, data) {
+
                 BJY.whiteboard.init($('.placeholder'));
 
                 eventEmitter.trigger(
                     eventEmitter.DOC_ALL_REQ
                 );
+
             }
         );
 

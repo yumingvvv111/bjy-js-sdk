@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flash 播放器</title>
+
+    <style>
+        object {
+            width: 400px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="http://www.tuicool.com/articles/Y7jyU3u" target="_blank">
+        相关资料
+    </a>
+
+    <div class="player">
+
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.22/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.22/player/player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.22/player/extension/flash.js"></script>
+    <script>
+
+        BJY.init({
+            env: 'test',
+            class: {
+                id: '877449628',
+                name: '课程名称',
+                startTime: 1489104000000,
+                endTime: 1489190400000
+            },
+            user: {
+                number: '123123123314',
+                avatar: 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
+                name: '用户昵称',
+                type: 0
+            },
+            teacher: {
+                number: '12312312312',
+                avatar: 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
+                name: '老师昵称',
+                type: 1
+            }
+        });
+
+        var Player = BJY.Player;
+        var flash = Player.flash;
+        flash.pluginUrl = 'http://live.gsxservice.com/asset/flash/camera.swf';
+
+        var store = BJY.store;
+        var eventEmitter = BJY.eventEmitter;
+
+        // 老师专用播放器
+        var teacherPlayer;
+
+        eventEmitter
+        .one(
+            eventEmitter.VIEW_RENDER_TRIGGER,
+            function (event, data) {
+
+                var onTeacherChange = function () {
+                    var videoOn = store.get('teacher.videoOn');
+                    var audioOn = store.get('teacher.audioOn');
+                    if (videoOn || audioOn) {
+                        teacherPlayer.playAV(videoOn);
+                    }
+                    else {
+                        teacherPlayer.playAVClose();
+                    }
+                };
+
+                store.watch('teacher.videoOn', onTeacherChange);
+                store.watch('teacher.audioOn', onTeacherChange);
+
+                // 此时教室只有你自己，需要请求才能知道别人的存在
+                // 因此这里需要先请求当前发言用户
+                // 老师也属于发言用户
+
+                eventEmitter
+                .trigger(
+                    eventEmitter.USER_ACTIVE_REQ
+                )
+                // 老师播放器的生命周期管理
+                .on(
+                    eventEmitter.TEACHER_ADD,
+                    function () {
+                        teacherPlayer = new Player({
+                            element: $('.player'),
+                            user: store.get('teacher'),
+                            extension: flash
+                        });
+                    }
+                )
+                .on(
+                    eventEmitter.TEACHER_REMOVE,
+                    function () {
+                        teacherPlayer.dispose();
+                    }
+                );
+
+            }
+        );
+
+    </script>
+</body>
+</html>
