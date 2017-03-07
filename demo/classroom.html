@@ -7,21 +7,23 @@
 <body>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.21/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/player/player.js"></script>
     <script>
 
         BJY.init({
-            env: 'test',
+            env: 'production',
+            sign: '539ea893e5835e46ee0707c89d7554e9',
             class: {
-                id: '877449628',
+                id: '17022883512665',
                 name: '课程名称',
                 startTime: 1489104000000,
                 endTime: 1489190400000
             },
             user: {
-                number: '123123123314',
-                avatar: 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
-                name: '用户昵称',
+                number: '40721586',
+                avatar: 'http://static.sunlands.com/newUserImagePath/40721586/40_40/40721586.jpg',
+                name: '杜斌',
                 type: 0
             },
             teacher: {
@@ -32,9 +34,7 @@
             }
         });
 
-        if (!BJY.support.flash) {
-            alert('请安装 flash');
-        }
+
 
         var eventEmitter = BJY.eventEmitter;
 
@@ -71,9 +71,26 @@
             }
         )
         .one(
+            eventEmitter.DOWNLINK_LINK_TYPE_CHANGE,
+            function (event, data) {
+                console.log('DOWNLINK_LINK_TYPE_CHANGE', data);
+            }
+        )
+        .one(
             eventEmitter.VIEW_RENDER_TRIGGER,
             function (event, data) {
+                if (!BJY.support.flash) {
+                    alert('请安装 flash');
+                }
+                // 在此初始化业务视图
                 console.log('渲染业务视图');
+
+                eventEmitter.trigger(
+                    eventEmitter.MESSAGE_PULL_REQ,
+                    {
+                        channel: 'chat'
+                    }
+                );
             }
         )
 
@@ -92,8 +109,13 @@
                     console.log('重连结束');
                 }
             }
+        )
+        .on(
+            eventEmitter.MESSAGE_PULL_RES,
+            function (event, data) {
+                console.log('拉取历史消息', data);
+            }
         );
-
 
     </script>
 </body>

@@ -2,20 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Flash 播放器</title>
+    <title>HTML 播放器</title>
 
     <style>
-        object {
+        video {
             width: 400px;
             height: 300px;
         }
     </style>
 </head>
 <body>
-
-    <a href="http://www.tuicool.com/articles/Y7jyU3u" target="_blank">
-        相关资料
-    </a>
 
     <div class="player">
 
@@ -25,7 +21,7 @@
     <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/classroom/classroom.js"></script>
     <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/player/player.js"></script>
     <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/player/core/Player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/player/extension/flash.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/player/extension/html.js"></script>
     <script>
 
         BJY.init({
@@ -54,8 +50,6 @@
         var eventEmitter = BJY.eventEmitter;
 
         var Player = BJY.Player;
-        var flash = Player.flash;
-        flash.pluginUrl = 'http://live.gsxservice.com/asset/flash/camera.swf';
 
         // 老师专用播放器
         var teacherPlayer;
@@ -80,7 +74,7 @@
                         teacherPlayer = new Player({
                             element: $('.player'),
                             user: store.get('teacher'),
-                            extension: flash
+                            extension: Player.html
                         });
                     }
                 )

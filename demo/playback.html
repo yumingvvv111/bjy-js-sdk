@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回放</title>
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.52/whiteboard/whiteboard.css">
+    <style>
+
+        #whiteboard {
+            width: 500px;
+            height: 300px;
+            background-color: #F0F0F0;
+            position: relative;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="whiteboard">
+        <div class="placeholder">
+
+        </div>
+    </div>
+
+    <video controls></video>
+
+    <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/whiteboard/whiteboard.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/playback/playback.js"></script>
+    <script>
+
+        var video = $('video')[0];
+        video.onplaying = function () {
+            BJY.playback.play();
+        };
+        video.onpause = function () {
+            BJY.playback.pause();
+        };
+        video.onseeked = function () {
+            BJY.playback.seek(video.currentTime);
+        };
+
+        var eventEmitter = BJY.eventEmitter;
+
+        BJY.playback.init({
+            env: 'production',
+            token: 'Aof1YYUnFREE3cl7mpW3D5haz4Zws7YeW3iSCilJXZwxuSba8SBafg',
+            class: {
+                id: '17022883512665' ,
+            },
+            user: {
+                number: '123123123314',
+                avatar: 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
+                name: '用户昵称',
+                type: 0
+            }
+        })
+        .then(function (videos) {
+
+            BJY.whiteboard.init({
+                element: $('.placeholder')
+            });
+
+            if (videos) {
+                var config = videos.low[0];
+                video.src = config.url;
+                video.width = config.width;
+                video.height = config.height;
+                video.play();
+            }
+
+        });
+
+        eventEmitter
+        .on(
+            eventEmitter.DOC_IMAGE_LOAD_START,
+            function () {
+                console.log('翻页开始')
+            }
+        )
+        .on(
+            eventEmitter.CURRENT_DOC_IMAGE_LOAD_END,
+            function () {
+                console.log('翻页结束')
+            }
+        );
+
+        var trigger = eventEmitter.trigger;
+        eventEmitter.trigger = function (type, data) {
+            console.log(type, data);
+            return trigger.call(this, type, data);
+        };
+
+        // setTimeout(
+        //     function () {
+        //         BJY.playback.seek(100);
+        //     },
+        //     5000
+        // );
+
+    </script>
+</body>
+</html>
