@@ -23,7 +23,7 @@
             user: {
                 number: '40721586',
                 avatar: 'http://static.sunlands.com/newUserImagePath/40721586/40_40/40721586.jpg',
-                name: '杜斌',
+                name: 'xxx',
                 type: 0
             },
             teacher: {
@@ -33,8 +33,6 @@
                 type: 1
             }
         });
-
-
 
         var eventEmitter = BJY.eventEmitter;
 
@@ -84,13 +82,6 @@
                 }
                 // 在此初始化业务视图
                 console.log('渲染业务视图');
-
-                eventEmitter.trigger(
-                    eventEmitter.MESSAGE_PULL_REQ,
-                    {
-                        channel: 'chat'
-                    }
-                );
             }
         )
 
@@ -114,6 +105,18 @@
             eventEmitter.MESSAGE_PULL_RES,
             function (event, data) {
                 console.log('拉取历史消息', data);
+            }
+        )
+        .one(
+            eventEmitter.CHAT_SERVER_LOGIN_SUCCESS,
+            function (event, data) {
+                // 请求聊天历史消息
+                eventEmitter.trigger(
+                    eventEmitter.MESSAGE_PULL_REQ,
+                    {
+                        channel: 'chat'
+                    }
+                );
             }
         );
 
