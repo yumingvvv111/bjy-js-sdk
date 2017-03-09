@@ -18,10 +18,10 @@
     </div>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.58/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.58/player/player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.58/player/core/Player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.58/player/extension/html.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/player/player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/player/core/Player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/player/extension/html.js"></script>
     <script>
 
         BJY.init({
@@ -51,7 +51,6 @@
 
         var Player = BJY.Player;
 
-        // 老师专用播放器
         var teacherPlayer;
 
         eventEmitter
@@ -66,25 +65,29 @@
                 eventEmitter
                 .trigger(
                     eventEmitter.USER_ACTIVE_REQ
-                )
-                // 老师播放器的生命周期管理
-                .on(
-                    eventEmitter.TEACHER_ADD,
-                    function () {
-                        teacherPlayer = new Player({
-                            element: $('.player'),
-                            user: store.get('teacher'),
-                            extension: Player.html
-                        });
-                    }
-                )
-                .on(
-                    eventEmitter.TEACHER_REMOVE,
-                    function () {
-                        teacherPlayer.dispose();
-                    }
                 );
 
+            }
+        )
+        // 老师播放器的生命周期管理
+        .on(
+            eventEmitter.TEACHER_MEDIA_ON,
+            function () {
+                if (!teacherPlayer) {
+                    teacherPlayer = new Player({
+                        element: $('.player'),
+                        user: store.get('teacher'),
+                        extension: Player.html
+                    });
+                }
+            }
+        )
+        .on(
+            eventEmitter.TEACHER_REMOVE,
+            function () {
+                if (teacherPlayer) {
+                    teacherPlayer.dispose();
+                }
             }
         );
 

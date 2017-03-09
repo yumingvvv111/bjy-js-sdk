@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>回放</title>
-    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.52/whiteboard/whiteboard.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/whiteboard/whiteboard.css">
     <style>
 
         #whiteboard {
@@ -26,9 +26,9 @@
     <video controls></video>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/whiteboard/whiteboard.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.57/playback/playback.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/whiteboard/whiteboard.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/playback/playback.js"></script>
     <script>
 
         var video = $('video')[0];
@@ -86,12 +86,6 @@
                 console.log('翻页结束')
             }
         );
-
-        var trigger = eventEmitter.trigger;
-        eventEmitter.trigger = function (type, data) {
-            console.log(type, data);
-            return trigger.call(this, type, data);
-        };
 
         // setTimeout(
         //     function () {
