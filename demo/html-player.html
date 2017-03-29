@@ -13,36 +13,34 @@
 </head>
 <body>
 
+    <h1>
+        请用 Safari 打开
+    </h1>
+
     <div class="player">
 
     </div>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/player/player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/player/core/Player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/player/extension/html.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/player/player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/player/core/Player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/player/extension/html.js"></script>
     <script>
 
         BJY.init({
             env: 'test',
             class: {
-                id: '877449628',
+                id: '17022337154216',
                 name: '课程名称',
                 startTime: 1489104000000,
                 endTime: 1489190400000
             },
             user: {
-                number: '123123123314',
+                number: '44853061',
                 avatar: 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
-                name: '用户昵称',
+                name: 'asd',
                 type: 0
-            },
-            teacher: {
-                number: '12312312312',
-                avatar: 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
-                name: '老师昵称',
-                type: 1
             }
         });
 
@@ -62,8 +60,7 @@
                 // 因此这里需要先请求当前发言用户
                 // 老师也属于发言用户
 
-                eventEmitter
-                .trigger(
+                eventEmitter.trigger(
                     eventEmitter.USER_ACTIVE_REQ
                 );
 

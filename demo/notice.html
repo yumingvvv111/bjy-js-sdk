@@ -2,66 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>课件白板</title>
-    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/whiteboard/whiteboard.css">
+    <title>公告</title>
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/notice/notice.css">
     <style>
 
-        #whiteboard {
-            width: 500px;
+        #notice {
+            width: 300px;
             height: 300px;
-            background-color: #F0F0F0;
-            position: relative;
         }
 
     </style>
 </head>
 <body>
 
-    <div id="whiteboard">
+    <div id="notice">
         <div class="placeholder">
 
         </div>
+        <button onclick="edit()">
+            编辑
+        </button>
     </div>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
     <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/whiteboard/whiteboard.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/notice/notice.js"></script>
     <script>
 
         BJY.init({
-            env: 'production',
-            sign: '33ec9d48100222a1caa5194bbda9d1fe',
+            env: 'test',
             class: {
-                id: '17030362279249',
+                id: '17022337154216',
                 name: '课程名称',
                 startTime: 1489104000000,
                 endTime: 1489190400000
             },
             user: {
                 number: '44853061',
-                avatar: 'http://static.sunlands.com/newUserImagePath/44853061/40_40/44853061.jpg',
-                name: '杜斌',
-                type: 0
-            },
-            teacher: {
-                number: '12312312312',
                 avatar: 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
-                name: '老师昵称',
-                type: 1
+                name: 'asd',
+                type: 0
             }
         });
 
         var eventEmitter = BJY.eventEmitter;
+        var notice;
 
         eventEmitter
         .one(
             eventEmitter.VIEW_RENDER_TRIGGER,
             function (event, data) {
-                BJY.whiteboard.init({
-                    element: $('.placeholder')
+
+                notice = BJY.notice.init({
+                    element: $('.placeholder'),
+                    defaultContent: '默认内容',
+                    saveButtonText: '保存',
+                    cancelButtonText: '取消',
+                    maxLength: 140,
+                    onMaxLengthFailure: function () {
+                        alert('超长啦');
+                    }
                 });
+
             }
         );
+
+
+        function edit() {
+            notice.set('editing', true);
+        }
 
     </script>
 </body>

@@ -3,14 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>回放</title>
-    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/whiteboard/whiteboard.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/whiteboard/whiteboard.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/message/MessageList.css">
     <style>
 
         #whiteboard {
             width: 500px;
             height: 300px;
             background-color: #F0F0F0;
+            overflow-y: auto;
             position: relative;
+        }
+
+        #message-list {
+            border: 1px solid #ccc;
+            width: 500px;
+            height: 300px;
+            position: relative;
+        }
+
+        .bjy-number {
+            display: none !important;
         }
 
     </style>
@@ -23,12 +36,19 @@
         </div>
     </div>
 
+    <div id="message-list">
+        <div class="placeholder">
+
+        </div>
+    </div>
+
     <video controls></video>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/whiteboard/whiteboard.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.73/playback/playback.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/whiteboard/whiteboard.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/message/MessageList.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.129/playback/playback.js"></script>
     <script>
 
         var video = $('video')[0];
@@ -42,32 +62,91 @@
             BJY.playback.seek(video.currentTime);
         };
 
+        var config = BJY.config;
         var eventEmitter = BJY.eventEmitter;
 
         BJY.playback.init({
-            env: 'production',
-            token: 'Aof1YYUnFREE3cl7mpW3D5haz4Zws7YeW3iSCilJXZwxuSba8SBafg',
+            env: 'test',
+            token: 'test12345678',
             class: {
-                id: '17022883512665' ,
+                id: '17030937111088'
             },
             user: {
-                number: '123123123314',
-                avatar: 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
-                name: '用户昵称',
+                number: '13147056',
+                avatar: 'http://static.sunlands.com/newUserImagePath/13147056/40_40/13147056.jpg',
+                name: '123123',
                 type: 0
             }
         })
-        .then(function (videos) {
+        .then(function (data) {
 
             BJY.whiteboard.init({
-                element: $('.placeholder')
+                element: $('#whiteboard .placeholder')
             });
 
-            if (videos) {
-                var config = videos.low[0];
-                video.src = config.url;
-                video.width = config.width;
-                video.height = config.height;
+            var userRoleMap = { };
+            userRoleMap[ config.ROLE_TYPE_TEACHER ] = {
+                en: 'teacher',
+                cn: '老师'
+            };
+            userRoleMap[ config.ROLE_TYPE_ASSISTANT ] = {
+                en: 'assistant',
+                cn: '助教'
+            };
+            userRoleMap[ config.ROLE_TYPE_STUDENT ] = {
+                en: 'student',
+                cn: '学生'
+            };
+            userRoleMap[ config.ROLE_TYPE_GUEST ] = {
+                en: 'guest',
+                cn: '游客'
+            };
+            BJY.MessageList.create({
+                element: $('#message-list .placeholder'),
+                renderEmoji: function (name, url) {
+                    return '<img ondragstart="return false" src="'
+                            + (url + '@100w_1e_1l')
+                            + '" srcset="'
+                            + (url + '@200w_1e_1l')
+                            + ' 2x">';
+                },
+                renderImage: function (url) {
+                    if (BJY.isAlicloudImage(url)) {
+                        return '<img ondragstart="return false" src="'
+                            + (url + '@100w_1e_1l')
+                            + '" srcset="'
+                            + (url + '@200w_1e_1l')
+                            + ' 2x">';
+                    }
+                    return '<img ondragstart="return false" src="' + url + '">';
+                },
+                renderUser: function (user, width, height) {
+                    return {
+                        id: user.id,
+                        name: user.name,
+                        number: user.number,
+                        // 头像需压缩
+                        avatar1x: BJY.compressImage({
+                            url: user.avatar,
+                            width: width,
+                            height: height
+                        }),
+                        avatar2x: BJY.compressImage({
+                            url: user.avatar,
+                            width: width * 2,
+                            height: height * 2
+                        }),
+                        // 根据用户类型，配置角色的英文和本地语言
+                        role: userRoleMap[user.type].en,
+                        localRole: userRoleMap[user.type].cn,
+                    }
+                }
+            });
+
+            BJY.playback.start();
+
+            if (data.videos) {
+                video.src = data.videos.low[0].url;
                 video.play();
             }
 
@@ -86,13 +165,6 @@
                 console.log('翻页结束')
             }
         );
-
-        // setTimeout(
-        //     function () {
-        //         BJY.playback.seek(100);
-        //     },
-        //     5000
-        // );
 
     </script>
 </body>

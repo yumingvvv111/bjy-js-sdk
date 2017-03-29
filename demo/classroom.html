@@ -83,7 +83,6 @@
                 console.log('渲染业务视图');
             }
         )
-
         .on(
             eventEmitter.CLASSROOM_CONNECT_START,
             function (event, data) {
@@ -98,24 +97,6 @@
                 if (data.reconnect) {
                     console.log('重连结束');
                 }
-            }
-        )
-        .on(
-            eventEmitter.MESSAGE_PULL_RES,
-            function (event, data) {
-                console.log('拉取历史消息', data);
-            }
-        )
-        .one(
-            eventEmitter.CHAT_SERVER_LOGIN_SUCCESS,
-            function (event, data) {
-                // 请求聊天历史消息
-                eventEmitter.trigger(
-                    eventEmitter.MESSAGE_PULL_REQ,
-                    {
-                        channel: 'chat'
-                    }
-                );
             }
         );
 
