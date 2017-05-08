@@ -14,11 +14,12 @@
 <body>
 
     <h1>
-        请用 Safari 打开
+        PC 请用 Safari 打开
+        手机请随意
     </h1>
 
     <div class="player">
-
+        <!-- 因为手机不支持自动播放，需在播放器位置放一个播放按钮，点击后调用 teacherPlayer.playAV() 触发播放 -->
     </div>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
@@ -29,17 +30,22 @@
     <script>
 
         BJY.init({
-            env: 'test',
+            env: 'production',
+            // class id 需配置成开课的 id
             class: {
-                id: '17022337154216',
+                id: '17050841292248',
                 name: '课程名称',
+                // 开始时间
                 startTime: 1489104000000,
+                // 结束时间
                 endTime: 1489190400000
             },
+            // 当前用户配置
             user: {
-                number: '44853061',
+                // 为了避免互踢，number 配置为 0
+                number: '0',
                 avatar: 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
-                name: 'asd',
+                name: '昵称',
                 type: 0
             }
         });
