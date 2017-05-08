@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>HTML 播放器</title>
+    <meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=0,maximum-scale=1.0,minimum-scale=1.0">
 
     <style>
         video {
             width: 400px;
             height: 300px;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -19,21 +23,28 @@
     </h1>
 
     <div class="player">
-        <!-- 因为手机不支持自动播放，需在播放器位置放一个播放按钮，点击后调用 teacherPlayer.playAV(true) 触发播放 -->
+
     </div>
 
+    <!-- 因为手机不支持自动播放，需在播放器位置放一个播放按钮，点击后调用 teacherPlayer.playAV(true) 触发播放 -->
+    <button id="btn-play" class="hidden">
+        播放
+    </button>
+
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.217/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.217/player/player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.217/player/core/Player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.217/player/extension/html.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.218/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.218/player/player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.218/player/core/Player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.218/player/extension/html.js"></script>
     <script>
 
         BJY.init({
-            env: 'production',
-            // class id 需配置成开课的 id
+            // test 为百家云内测使用
+            // 客户需配置为 production
+            env: 'test',
             class: {
-                id: '17050841292248',
+                // class id 需配置成开课的 id
+                id: '877449628',
                 name: '课程名称',
                 // 开始时间
                 startTime: 1489104000000,
@@ -56,6 +67,16 @@
         var Player = BJY.Player;
 
         var teacherPlayer;
+        var playButton = $('#btn-play');
+
+        playButton.on('click', function () {
+            if (teacherPlayer.videoOn || teacherPlayer.audioOn) {
+                teacherPlayer.playAVClose();
+            }
+            teacherPlayer.playAV(
+                store.get('teacher.videoOn')
+            );
+        });
 
         eventEmitter
         .one(
@@ -82,18 +103,101 @@
                         user: store.get('teacher'),
                         extension: Player.html
                     });
+                    playButton.removeClass('hidden');
                 }
+            }
+        )
+        .on(
+            eventEmitter.TEACHER_ADD,
+            function () {
+                console.log('老师进入教室');
             }
         )
         .on(
             eventEmitter.TEACHER_REMOVE,
             function () {
+                console.log('老师离开教室');
                 if (teacherPlayer) {
                     teacherPlayer.dispose();
                 }
+            }
+        )
+
+
+        .on(
+            eventEmitter.HTML_VIDEO_LOAD_START,
+            function () {
+                console.log('正在加载视频');
+            }
+        )
+        .on(
+            eventEmitter.HTML_VIDEO_PLAY,
+            function () {
+                console.log('视频开始播放');
+                playButton.addClass('hidden');
+            }
+        )
+        .on(
+            eventEmitter.HTML_VIDEO_PAUSE,
+            function () {
+                console.log('视频暂停');
+                playButton.removeClass('hidden');
+            }
+        )
+        .on(
+            eventEmitter.HTML_VIDEO_LOAD_TIMEOUT,
+            function () {
+                console.log('视频加载超时');
+                playButton.removeClass('hidden');
+            }
+        )
+        .on(
+            eventEmitter.HTML_VIDEO_LOAD_FAIL,
+            function () {
+                console.log('视频加载失败');
+                playButton.removeClass('hidden');
+            }
+        )
+
+
+
+        .on(
+            eventEmitter.HTML_AUDIO_LOAD_START,
+            function () {
+                console.log('正在加载音频');
+            }
+        )
+        .on(
+            eventEmitter.HTML_AUDIO_PLAY,
+            function () {
+                console.log('音频开始播放');
+                playButton.addClass('hidden');
+            }
+        )
+        .on(
+            eventEmitter.HTML_AUDIO_PAUSE,
+            function () {
+                console.log('音频暂停');
+                playButton.removeClass('hidden');
+            }
+        )
+        .on(
+            eventEmitter.HTML_AUDIO_LOAD_TIMEOUT,
+            function () {
+                console.log('音频加载超时');
+                playButton.removeClass('hidden');
+            }
+        )
+        .on(
+            eventEmitter.HTML_AUDIO_LOAD_FAIL,
+            function () {
+                console.log('音频加载失败');
+                playButton.removeClass('hidden');
             }
         );
 
     </script>
 </body>
 </html>
+
+
