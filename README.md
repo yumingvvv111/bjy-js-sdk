@@ -1,6 +1,6 @@
 # 百家云 SDK
 
-最新版本：0.0.238
+最新版本：0.0.239
 
 * [进入教室](https://github.com/baijia/bjy-js-sdk/wiki/%E8%BF%9B%E5%85%A5%E6%95%99%E5%AE%A4)
 * [公告](https://github.com/baijia/bjy-js-sdk/wiki/%E5%85%AC%E5%91%8A)
