@@ -7,7 +7,7 @@
 <body>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.225/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/classroom/classroom.js"></script>
     <script>
 
         BJY.init({
@@ -19,12 +19,15 @@
                 startTime: 1489104000000,
                 endTime: 1489190400000
             },
+            // 当前用户配置
+            // type 0 表示学生，1 表示老师
             user: {
                 number: '40721586',
                 avatar: 'http://static.sunlands.com/newUserImagePath/40721586/40_40/40721586.jpg',
-                name: 'xxx',
+                name: '当前用户昵称',
                 type: 0
             },
+            // 如果知道此教室对应的老师信息，可传入，否则可不传
             teacher: {
                 number: '12312312312',
                 avatar: 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
@@ -42,28 +45,28 @@
             eventEmitter.MASTER_SERVER_CONNECT_SUCCESS,
             function () {
                 console.log('MASTER_SERVER_CONNECT_SUCCESS');
-                console.log('20%');
+                console.log('进度条走到 20%');
             }
         )
         .one(
             eventEmitter.SERVER_INFO_FETCH_SUCCESS,
             function () {
                 console.log('SERVER_INFO_FETCH_SUCCESS');
-                console.log('40%');
+                console.log('进度条走到 40%');
             }
         )
         .one(
             eventEmitter.ROOM_SERVER_CONNECT_SUCCESS,
             function () {
                 console.log('ROOM_SERVER_CONNECT_SUCCESS');
-                console.log('60%');
+                console.log('进度条走到 60%');
             }
         )
         .one(
             eventEmitter.ROOM_SERVER_LOGIN_SUCCESS,
             function () {
                 console.log('ROOM_SERVER_LOGIN_SUCCESS');
-                console.log('80%');
+                console.log('进度条走到 80%');
                 // 到这里已经成功登录，进度条用动画过渡到 100% 即可
             }
         )
@@ -76,6 +79,7 @@
         .one(
             eventEmitter.VIEW_RENDER_TRIGGER,
             function (event, data) {
+                // 如果是 PC 网页，需检测 flash 的支持情况
                 if (!BJY.support.flash) {
                     alert('请安装 flash');
                 }

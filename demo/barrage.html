@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>弹幕</title>
+  <style>
+
+      #barrage {
+          background-color: #ccc;
+          width: 800px;
+          height: 800px;
+          position: relative;
+      }
+
+      .bjy-barrage {
+          background-color: #FFF;
+          color: blue;
+          padding: 2px 4px;
+      }
+
+  </style>
+</head>
+<body>
+
+    <div id="barrage">
+
+    </div>
+
+    默认会把聊天消息发送到弹幕上，你也可以用下面的按钮进行测试
+
+    <div>
+        <input type="text">
+        <button onclick="send()">
+            发送
+        </button>
+
+        <button onclick="barrage.open()">
+            开启弹幕
+        </button>
+
+        <button onclick="barrage.close()">
+            关闭弹幕
+        </button>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/barrage/barrage.js"></script>
+    <script>
+
+        var barrage = new BJY.Barrage({
+            container: $('#barrage'),
+            // 消息频道
+            channel: 'chat',
+            // 移动速度，每秒移动多少个像素
+            speed: 100,
+            // 最长可显示多少个字，超过这个字数的会过滤
+            maxLength: 20,
+            // 在 top - bottom 的区间出现弹幕
+            top: 30,
+            bottom: 30
+        });
+
+        barrage.open();
+
+        function send() {
+            barrage.send(
+                $('input').val()
+            );
+        }
+
+    </script>
+</body>
+</html>
