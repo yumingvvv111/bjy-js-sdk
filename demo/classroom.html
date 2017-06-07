@@ -71,12 +71,6 @@
             }
         )
         .one(
-            eventEmitter.DOWNLINK_LINK_TYPE_CHANGE,
-            function (event, data) {
-                console.log('DOWNLINK_LINK_TYPE_CHANGE', data);
-            }
-        )
-        .one(
             eventEmitter.VIEW_RENDER_TRIGGER,
             function (event, data) {
                 // 如果是 PC 网页，需检测 flash 的支持情况
