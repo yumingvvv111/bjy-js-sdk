@@ -22,10 +22,10 @@
     </div>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/player/player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/player/core/Player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/player/extension/flash.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.320/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.320/player/player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.320/player/core/Player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.320/player/extension/flash.js"></script>
     <script>
 
         BJY.init({
@@ -54,20 +54,6 @@
         var teacherPlayer;
 
         eventEmitter
-        .one(
-            eventEmitter.VIEW_RENDER_TRIGGER,
-            function (event, data) {
-
-                // 此时教室只有你自己，需要请求才能知道别人的存在
-                // 因此这里需要先请求当前发言用户
-                // 老师也属于发言用户
-
-                eventEmitter.trigger(
-                    eventEmitter.USER_ACTIVE_REQ
-                );
-
-            }
-        )
         // 老师播放器的生命周期管理
         .on(
             eventEmitter.TEACHER_MEDIA_ON,
