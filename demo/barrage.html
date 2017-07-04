@@ -7,9 +7,10 @@
 
       #barrage {
           background-color: #ccc;
-          width: 800px;
-          height: 800px;
+          width: 600px;
+          height: 400px;
           position: relative;
+          margin-top: 20px;
       }
 
       .bjy-barrage {
@@ -22,30 +23,38 @@
 </head>
 <body>
 
+    <h5>
+        直播中会把聊天消息发送到弹幕上，你也可以用下面的按钮进行测试
+    </h5>
+
+    <div>
+        <input type="text">
+
+        <span>
+            当前状态：<small class="status"></small>
+        </span>
+
+        <button onclick="sendMessage()">
+            发送
+        </button>
+
+        <button onclick="openBarrage()">
+            开启弹幕
+        </button>
+
+        <button onclick="closeBarrage()">
+            关闭弹幕
+        </button>
+
+    </div>
+
     <div id="barrage">
 
     </div>
 
-    默认会把聊天消息发送到弹幕上，你也可以用下面的按钮进行测试
-
-    <div>
-        <input type="text">
-        <button onclick="send()">
-            发送
-        </button>
-
-        <button onclick="barrage.open()">
-            开启弹幕
-        </button>
-
-        <button onclick="barrage.close()">
-            关闭弹幕
-        </button>
-    </div>
-
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/barrage/Barrage.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.320/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.320/barrage/Barrage.js"></script>
     <script>
 
         var barrage = new BJY.Barrage({
@@ -58,16 +67,30 @@
             maxLength: 20,
             // 在 top - bottom 的区间出现弹幕
             top: 30,
-            bottom: 30
+            bottom: 30,
+            // 轨道高度
+            trackHeight: 30
         });
 
-        barrage.open();
+        var statusElement = $('.status');
 
-        function send() {
+        function sendMessage() {
             barrage.send(
                 $('input').val()
             );
         }
+
+        function openBarrage() {
+            barrage.open();
+            statusElement.html('开');
+        }
+
+        function closeBarrage() {
+            barrage.close();
+            statusElement.html('关');
+        }
+
+        openBarrage();
 
     </script>
 </body>
