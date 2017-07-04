@@ -25,6 +25,7 @@
 
     <h5>
         直播中会把聊天消息发送到弹幕上，你也可以用下面的按钮进行测试
+        （弹幕样式需自定义）
     </h5>
 
     <div>
@@ -53,14 +54,12 @@
     </div>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.320/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.320/barrage/Barrage.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.332/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.332/barrage/Barrage.js"></script>
     <script>
 
         var barrage = new BJY.Barrage({
             container: $('#barrage'),
-            // 消息频道
-            channel: 'chat',
             // 移动速度，每秒移动多少个像素
             speed: 100,
             // 最长可显示多少个字，超过这个字数的会过滤

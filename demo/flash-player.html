@@ -17,24 +17,40 @@
         相关资料
     </a>
 
+    <p>
+        播放器内部实现了响应对方的各种音视频切换，
+        外部唯一需要做的只有两件事：
+
+        <ul>
+            <li>
+                当对方打开音视频的任何一个时创建播放器
+            </li>
+            <li>
+                当对方离开房间时销毁播放器
+            </li>
+        </ul>
+
+        当对方尚未打开音视频，如果你认为空白不太好看，可以自定义样式，当对方打开音视频时，把播放器填充进去即可。
+
+    </p>
+
     <div class="player">
 
     </div>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.320/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.320/player/player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.320/player/core/Player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.320/player/extension/flash.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.332/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.332/player/player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.332/player/core/Player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.332/player/extension/flash.js"></script>
     <script>
 
         BJY.init({
+            // test 为百家云内测使用
+            // 客户需配置为 production
             env: 'test',
             class: {
-                id: '17022337154216',
-                name: '课程名称',
-                startTime: 1489104000000,
-                endTime: 1489190400000
+                id: '17070445548808'
             },
             user: {
                 number: '44853061',
@@ -54,7 +70,6 @@
         var teacherPlayer;
 
         eventEmitter
-        // 老师播放器的生命周期管理
         .on(
             eventEmitter.TEACHER_MEDIA_ON,
             function () {
