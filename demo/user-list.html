@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>用户列表</title>
-    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/user/UserList.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.358/user/userList/UserList.css">
     <style>
 
         #user-list {
@@ -28,8 +28,8 @@
     </div>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/user/UserList.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.358/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.358/user/userList/UserList.js"></script>
     <script>
 
         BJY.init({
@@ -80,7 +80,7 @@
                             name: user.name,
                             number: user.number,
                             // 头像需压缩
-                            avatar1x: BJY.compressImage({
+                            avatar: BJY.compressImage({
                                 url: user.avatar,
                                 width: width,
                                 height: height

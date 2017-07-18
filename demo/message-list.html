@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>聊天列表</title>
-    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/message/MessageList.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.358/message/messageList/MessageList.css">
     <style>
 
         #message-list {
@@ -32,8 +32,8 @@
     </div>
 
     <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.265/message/MessageList.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.358/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.358/message/messageList/MessageList.js"></script>
     <script>
 
         BJY.init({
@@ -102,7 +102,7 @@
                             name: user.name,
                             number: user.number,
                             // 头像需压缩
-                            avatar1x: BJY.compressImage({
+                            avatar: BJY.compressImage({
                                 url: user.avatar,
                                 width: width,
                                 height: height
