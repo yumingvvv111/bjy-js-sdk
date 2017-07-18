@@ -41,32 +41,29 @@
     </style>
 
     <!-- 以下外链是 SDK 相关 -->
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.359/loading/live/Loading.css">
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.359/whiteboard/whiteboard.css">
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.359/message/messageList/MessageList.css">
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.359/message/messageSender/MessageSender.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.362/classroom/classroom.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.362/loading/live/Loading.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.362/whiteboard/whiteboard.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.362/message/messageList/MessageList.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.362/message/messageSender/MessageSender.css">
 
     <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.359/classroom/classroom.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.359/loading/live/Loading.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.359/whiteboard/whiteboard.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.359/message/messageList/MessageList.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.359/message/messageSender/MessageSender.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.362/classroom/classroom.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.362/loading/live/Loading.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.362/whiteboard/whiteboard.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.362/message/messageList/MessageList.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.362/message/messageSender/MessageSender.js"></script>
 
-    <script src="//www.baijiacloud.com/js-sdk/0.0.359/player/player.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.359/player/core/Player.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.359/player/extension/html.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.359/player/extension/flash.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.359/barrage/Barrage.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.362/player/player.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.362/player/core/Player.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.362/player/extension/html.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.362/player/extension/flash.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.362/barrage/Barrage.js"></script>
 
 </head>
 <body>
 
     <div id="main">
-
-        <div class="alert alert-info">
-            Github 演示页为 https，如果你的网页是 http，请用 http://live-cdn.baijiacloud.com 域名的静态资源，以便利用 CDN 加速。
-        </div>
 
         <a href="#loading" name="loading" class="title">
             进度条
@@ -554,24 +551,32 @@
 
         <div class="content">
             <p>
-                10 秒内最多发送 3 条消息。
-            </p>
-            <p>
-                需要通过 sign 读取后台表情配置，因此 url 必须加参数，如 room_id=xxx&sign=xxx&user_number=xxx&user_avatar=xxx&user_name=xxx
+                10 秒内最多发送 30 条消息。
             </p>
         </div>
 
         <div class="case">
 
             <div id="message-sender">
-                <div class="placeholder"></div>
+                <div class="message-sender-title">
+                    表情列表读百家云后台配置（表情按钮的图标需自己实现）
+                </div>
+                <div class="placeholder1"></div>
+                <div class="message-sender-title">
+                    表情列表完全自定义（表情按钮的图标需自己实现）
+                </div>
+                <div class="placeholder2"></div>
             </div>
 
             <style>
                 #message-sender {
-                    width: 400px;
-                    height: 200px;
+                    width: 480px;
+                    height: 280px;
+                    padding: 0 20px;
                     position: relative;
+                }
+                .message-sender-title {
+                    margin: 10px 0;
                 }
             </style>
 
@@ -583,12 +588,36 @@
                 .on(
                     eventEmitter.VIEW_RENDER_TRIGGER,
                     function () {
-                        var instance2 = BJY.MessageSender.create({
-                            element: $('#message-sender .placeholder'),
-                            canSendImage: true,
+                        BJY.MessageSender.create({
+                            element: $('#message-sender .placeholder1'),
                             canSendEmoji: true,
                             multiline: true,
                             messageMaxLength: 140
+                        });
+
+                        var data = [];
+                        for (var i = 0; i < 100; i++) {
+                            var name = '捂脸' + i;
+                            if (i < 10) {
+                                name = '捂脸' + '0' + i;
+                            }
+                            data.push({
+                                key: 'wulian' + i,
+                                name: name,
+                                url: 'http://img.gsxservice.com/0baijiacloud/emotion/gsx/v1/dk.png'
+                            })
+                        }
+
+                        BJY.MessageSender.create({
+                            element: $('#message-sender .placeholder2'),
+                            canSendEmoji: true,
+                            multiline: true,
+                            messageMaxLength: 140,
+                            emotionList: {
+                                data: data,
+                                emotionPerRow: 4,
+                                rowPerPage: 4,
+                            }
                         });
                     }
                 );
