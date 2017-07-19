@@ -41,24 +41,24 @@
     </style>
 
     <!-- 以下外链是 SDK 相关 -->
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.364/classroom/classroom.css">
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.364/loading/live/Loading.css">
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.364/whiteboard/whiteboard.css">
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.364/message/messageList/MessageList.css">
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.364/message/messageSender/MessageSender.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.367/classroom/classroom.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.367/loading/live/Loading.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.367/whiteboard/whiteboard.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.367/message/messageList/MessageList.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.367/message/messageSender/MessageSender.css">
 
     <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.364/classroom/classroom.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.364/loading/live/Loading.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.364/whiteboard/whiteboard.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.364/message/messageList/MessageList.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.364/message/messageSender/MessageSender.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.367/classroom/classroom.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.367/loading/live/Loading.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.367/whiteboard/whiteboard.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.367/message/messageList/MessageList.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.367/message/messageSender/MessageSender.js"></script>
 
-    <script src="//www.baijiacloud.com/js-sdk/0.0.364/player/player.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.364/player/core/Player.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.364/player/extension/html.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.364/player/extension/flash.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.364/barrage/Barrage.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.367/player/player.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.367/player/core/Player.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.367/player/extension/html.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.367/player/extension/flash.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.367/barrage/Barrage.js"></script>
 
 </head>
 <body>
@@ -625,6 +625,24 @@
                             }
                         });
                     }
+                )
+                .one(
+                    eventEmitter.CHAT_SERVER_LOGIN_SUCCESS,
+                    function () {
+                        eventEmitter.trigger(
+                            eventEmitter.MESSAGE_PULL_REQ,
+                            {
+                                channel: 'chat',
+                                count: 10,
+                            }
+                        )
+                    }
+                )
+                .on(
+                    eventEmitter.MESSAGE_PULL_RES,
+                    function (event, data) {
+                        console.log(data)
+                    }
                 );
 
             </script>
@@ -706,7 +724,13 @@
                     top: 30,
                     bottom: 30,
                     // 轨道高度
-                    trackHeight: 30
+                    trackHeight: 30,
+                    // 是否只显示文本消息
+                    textOnly: false,
+                    // 如果需要自定义弹幕内容，可实现此方法
+                    renderContent: function (data) {
+                        return '转换后的文字';
+                    }
                 });
 
                 var statusElement = $('.status');
@@ -741,4 +765,3 @@
 
 
 </body>
-</html>
