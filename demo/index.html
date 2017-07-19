@@ -41,24 +41,24 @@
     </style>
 
     <!-- 以下外链是 SDK 相关 -->
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.362/classroom/classroom.css">
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.362/loading/live/Loading.css">
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.362/whiteboard/whiteboard.css">
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.362/message/messageList/MessageList.css">
-    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.362/message/messageSender/MessageSender.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.364/classroom/classroom.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.364/loading/live/Loading.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.364/whiteboard/whiteboard.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.364/message/messageList/MessageList.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.364/message/messageSender/MessageSender.css">
 
     <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.362/classroom/classroom.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.362/loading/live/Loading.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.362/whiteboard/whiteboard.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.362/message/messageList/MessageList.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.362/message/messageSender/MessageSender.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.364/classroom/classroom.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.364/loading/live/Loading.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.364/whiteboard/whiteboard.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.364/message/messageList/MessageList.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.364/message/messageSender/MessageSender.js"></script>
 
-    <script src="//www.baijiacloud.com/js-sdk/0.0.362/player/player.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.362/player/core/Player.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.362/player/extension/html.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.362/player/extension/flash.js"></script>
-    <script src="//www.baijiacloud.com/js-sdk/0.0.362/barrage/Barrage.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.364/player/player.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.364/player/core/Player.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.364/player/extension/html.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.364/player/extension/flash.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.364/barrage/Barrage.js"></script>
 
 </head>
 <body>
@@ -194,75 +194,7 @@
         </div>
 
 
-        <a href="#flash-player" name="flash-player" class="title">
-            Flash 播放器
-        </a>
 
-        <div class="content">
-            <p>
-                播放器内部实现了响应对方的各种音视频切换，
-                外部唯一需要做的只有两件事：
-
-                <ul>
-                    <li>
-                        当对方打开音视频的任何一个时创建播放器
-                    </li>
-                    <li>
-                        当对方离开房间时销毁播放器
-                    </li>
-                </ul>
-
-                当对方尚未打开音视频，如果你认为空白不太好看，可以自定义样式，当对方打开音视频时，把播放器填充进去即可。
-            </p>
-        </div>
-
-        <div class="case">
-
-            <div id="flash-player">
-
-            </div>
-
-            <style>
-                #flash-player {
-                    min-height: 300px;
-                }
-            </style>
-
-            <script>
-
-                var store = BJY.store;
-                var eventEmitter = BJY.eventEmitter;
-
-                var Player = BJY.Player;
-                var flash = Player.flash;
-                flash.pluginUrl = 'http://live.gsxservice.com/asset/flash/camera.swf';
-
-                var teacherFlashPlayer;
-
-                eventEmitter
-                .on(
-                    eventEmitter.TEACHER_MEDIA_ON,
-                    function () {
-                        if (!teacherFlashPlayer) {
-                            teacherFlashPlayer = new Player({
-                                element: $('#flash-player'),
-                                user: store.get('teacher'),
-                                extension: flash
-                            });
-                        }
-                    }
-                )
-                .on(
-                    eventEmitter.TEACHER_REMOVE,
-                    function () {
-                        if (teacherFlashPlayer) {
-                            teacherFlashPlayer.dispose();
-                        }
-                    }
-                );
-
-            </script>
-        </div>
 
 
         <a href="#html-player" name="html-player" class="title">
@@ -435,6 +367,79 @@
                     function () {
                         console.log('音频加载失败');
                         playButton.removeClass('hidden');
+                    }
+                );
+
+            </script>
+        </div>
+
+
+
+        <a href="#flash-player" name="flash-player" class="title">
+            Flash 播放器
+        </a>
+
+        <div class="content">
+            <p>
+                播放器内部实现了响应对方的各种音视频切换，
+                外部唯一需要做的只有两件事：
+
+                <ul>
+                    <li>
+                        当对方打开音视频的任何一个时创建播放器
+                    </li>
+                    <li>
+                        当对方离开房间时销毁播放器
+                    </li>
+                </ul>
+
+                当对方尚未打开音视频，如果你认为空白不太好看，可以自定义样式，当对方打开音视频时，把播放器填充进去即可。
+            </p>
+        </div>
+
+        <div class="case">
+
+            <div id="flash-player">
+
+            </div>
+
+            <style>
+                #flash-player object {
+                    width: 640px;
+                    height: 480px;
+                }
+            </style>
+
+            <script>
+
+                var store = BJY.store;
+                var eventEmitter = BJY.eventEmitter;
+
+                var Player = BJY.Player;
+                var flash = Player.flash;
+                flash.pluginUrl = 'http://live.gsxservice.com/asset/flash/camera.swf';
+
+                var teacherFlashPlayer;
+
+                eventEmitter
+                .on(
+                    eventEmitter.TEACHER_MEDIA_ON,
+                    function () {
+                        if (!teacherFlashPlayer) {
+                            teacherFlashPlayer = new Player({
+                                element: $('#flash-player'),
+                                user: store.get('teacher'),
+                                extension: flash
+                            });
+                        }
+                    }
+                )
+                .on(
+                    eventEmitter.TEACHER_REMOVE,
+                    function () {
+                        if (teacherFlashPlayer) {
+                            teacherFlashPlayer.dispose();
+                        }
                     }
                 );
 
