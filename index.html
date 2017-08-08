@@ -49,6 +49,9 @@
         .content p {
             margin: 5px 0;
         }
+        .deps {
+            margin-top: 10px;
+        }
         .case {
             border: 1px solid #EEE;
             margin-top: 10px;
@@ -71,27 +74,30 @@
     </style>
 
     <!-- 以下外链是 SDK 相关 -->
-    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/classroom/classroom.css">
-    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/loading/live/Loading.css">
-    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/whiteboard/whiteboard.css">
-    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/message/messageList/MessageList.css">
-    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/message/messageSender/MessageSender.css">
-    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/setting/menu/menu.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/classroom/classroom.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/loading/live/Loading.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/whiteboard/whiteboard.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/message/messageList/MessageList.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/message/messageSender/MessageSender.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/setting/menu/menu.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/user/userList/UserList.css">
+
 
     <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/classroom/classroom.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/loading/live/Loading.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/whiteboard/whiteboard.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/user/userSpeak.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/setting/menu/menu.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/message/messageList/MessageList.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/message/messageSender/MessageSender.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/classroom/classroom.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/loading/live/Loading.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/whiteboard/whiteboard.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/user/userSpeak.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/setting/menu/menu.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/message/messageList/MessageList.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/message/messageSender/MessageSender.js"></script>
 
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/player/player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/player/core/Player.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/player/extension/html.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/player/extension/flash.js"></script>
-    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/barrage/Barrage.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/player/player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/player/core/Player.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/player/extension/html.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/player/extension/flash.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/barrage/Barrage.js"></script>
+    <script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/user/userList/UserList.js"></script>
 
 </head>
 <body>
@@ -105,6 +111,9 @@
         </a>
         <a href="#whiteboard">
             文档白板
+        </a>
+        <a href="#user-list">
+            用户列表
         </a>
         <a href="#setting-buttons">
             设置按钮
@@ -143,10 +152,10 @@
 
         <div class="deps">
             <textarea class="code-input">
-<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/classroom/classroom.css">
+<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/classroom/classroom.css">
             </textarea>
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/classroom/classroom.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/classroom/classroom.js"></script>
             </textarea>
         </div>
 
@@ -170,10 +179,10 @@
 
         <div class="deps">
             <textarea class="code-input">
-<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/loading/live/Loading.css">
+<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/loading/live/Loading.css">
             </textarea>
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/loading/live/Loading.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/loading/live/Loading.js"></script>
             </textarea>
         </div>
 
@@ -266,10 +275,10 @@
 
         <div class="deps">
             <textarea class="code-input">
-<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/whiteboard/whiteboard.css">
+<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/whiteboard/whiteboard.css">
             </textarea>
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/whiteboard/whiteboard.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/whiteboard/whiteboard.js"></script>
             </textarea>
         </div>
 
@@ -308,6 +317,104 @@
 
 
 
+
+
+
+
+
+        <a href="#user-list" name="user-list" class="title">
+            用户列表
+        </a>
+
+        <div class="content">
+            <p>
+                展现当前在线的用户。
+            </p>
+        </div>
+
+        <div class="deps">
+            <textarea class="code-input">
+<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/user/userList/UserList.css">
+            </textarea>
+            <textarea class="code-input">
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/user/userList/UserList.js"></script>
+            </textarea>
+        </div>
+
+        <div class="case">
+
+            <div id="user-list">
+                <div class="placeholder"></div>
+            </div>
+
+            <style>
+                #user-list {
+                    width: 300px;
+                    height: 400px;
+                    position: relative;
+                }
+            </style>
+
+            <script>
+
+                eventEmitter
+                .one(
+                    eventEmitter.VIEW_RENDER_TRIGGER,
+                    function (event, data) {
+                        var userRoleMap = { };
+                        var config = BJY.config;
+                        userRoleMap[ config.ROLE_TYPE_TEACHER ] = {
+                            en: 'teacher',
+                            cn: '老师'
+                        };
+                        userRoleMap[ config.ROLE_TYPE_ASSISTANT ] = {
+                            en: 'assistant',
+                            cn: '助教'
+                        };
+                        userRoleMap[ config.ROLE_TYPE_STUDENT ] = {
+                            en: 'student',
+                            cn: '学生'
+                        };
+                        userRoleMap[ config.ROLE_TYPE_GUEST ] = {
+                            en: 'guest',
+                            cn: '游客'
+                        };
+                        BJY.UserList.create({
+                            element: $('#user-list .placeholder'),
+                            renderUser: function (user, width, height) {
+                                return {
+                                    id: user.id,
+                                    name: user.name,
+                                    number: user.number,
+                                    // 头像需压缩
+                                    avatar: BJY.compressImage({
+                                        url: user.avatar,
+                                        width: width,
+                                        height: height
+                                    }),
+                                    avatar2x: BJY.compressImage({
+                                        url: user.avatar,
+                                        width: width * 2,
+                                        height: height * 2
+                                    }),
+                                    // 根据用户类型，配置角色的英文和本地语言
+                                    role: userRoleMap[user.type].en,
+                                    localRole: userRoleMap[user.type].cn,
+                                }
+                            }
+                        });
+                    }
+                );
+
+            </script>
+        </div>
+
+
+
+
+
+
+
         <a href="#setting-buttons" name="setting-buttons" class="title">
             设置按钮
         </a>
@@ -323,10 +430,10 @@
 
         <div class="deps">
             <textarea class="code-input">
-<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/setting/menu/menu.css">
+<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/setting/menu/menu.css">
             </textarea>
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/setting/menu/menu.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/setting/menu/menu.js"></script>
             </textarea>
         </div>
 
@@ -453,13 +560,13 @@
 
         <div class="deps">
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/player/player.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/player/player.js"></script>
             </textarea>
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/player/core/Player.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/player/core/Player.js"></script>
             </textarea>
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/player/extension/html.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/player/extension/html.js"></script>
             </textarea>
         </div>
 
@@ -641,13 +748,13 @@
 
         <div class="deps">
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/player/player.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/player/player.js"></script>
             </textarea>
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/player/core/Player.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/player/core/Player.js"></script>
             </textarea>
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/player/extension/flash.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/player/extension/flash.js"></script>
             </textarea>
         </div>
 
@@ -671,7 +778,7 @@
 
                 var Player = BJY.Player;
                 var flash = Player.flash;
-                flash.pluginUrl = 'http://live-cdn.baijiacloud.com/js-sdk/0.0.405/player/extension/flash.swf';
+                flash.pluginUrl = 'http://live-cdn.baijiacloud.com/js-sdk/0.0.406/player/extension/flash.swf';
 
                 flash.init();
 
@@ -718,10 +825,10 @@
 
         <div class="deps">
             <textarea class="code-input">
-<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/message/messageList/MessageList.css">
+<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/message/messageList/MessageList.css">
             </textarea>
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/message/messageList/MessageList.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/message/messageList/MessageList.js"></script>
             </textarea>
         </div>
 
@@ -820,15 +927,15 @@
         </a>
 
         <div class="content">
-
+            SDK 提供了一个默认的聊天发送组件，它为 PC 设计，也可以通过自定义样式，较好的适应手机。
         </div>
 
         <div class="deps">
             <textarea class="code-input">
-<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/message/messageSender/MessageSender.css">
+<link rel="stylesheet" href="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/message/messageSender/MessageSender.css">
             </textarea>
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/message/messageSender/MessageSender.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/message/messageSender/MessageSender.js"></script>
             </textarea>
         </div>
 
@@ -843,12 +950,16 @@
                     表情列表完全自定义（表情按钮的图标需自己实现）
                 </div>
                 <div class="placeholder2"></div>
+                <div class="message-sender-title">
+                    手机聊天框（表情按钮的图标需自己实现，还需要自己把垂直布局改成水平布局）
+                </div>
+                <div class="placeholder3"></div>
             </div>
 
             <style>
                 #message-sender {
                     width: 480px;
-                    height: 280px;
+                    height: 450px;
                     padding: 0 20px;
                     position: relative;
                 }
@@ -869,6 +980,7 @@
                             element: $('#message-sender .placeholder1'),
                             canSendEmoji: true,
                             multiline: true,
+                            placeholder: '请输入...',
                             messageMaxLength: 140
                         });
 
@@ -890,6 +1002,20 @@
                             canSendEmoji: true,
                             multiline: true,
                             messageMaxLength: 140,
+                            placeholder: '请输入...',
+                            emotionList: {
+                                data: data,
+                                emotionPerRow: 4,
+                                rowPerPage: 4,
+                            }
+                        });
+
+                        BJY.MessageSender.create({
+                            element: $('#message-sender .placeholder3'),
+                            canSendEmoji: true,
+                            multiline: false,
+                            messageMaxLength: 0,
+                            placeholder: '请输入...',
                             emotionList: {
                                 data: data,
                                 emotionPerRow: 4,
@@ -939,7 +1065,7 @@
 
         <div class="deps">
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/barrage/Barrage.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/barrage/Barrage.js"></script>
             </textarea>
         </div>
 
@@ -1071,7 +1197,7 @@
 
         <div class="deps">
             <textarea class="code-input">
-<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.405/playback/playback.js"></script>
+<script src="http://live-cdn.baijiacloud.com/js-sdk/0.0.406/playback/playback.js"></script>
             </textarea>
         </div>
 
