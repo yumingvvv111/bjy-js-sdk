@@ -642,6 +642,7 @@
                         console.log('老师离开教室');
                         if (teacherH5Player) {
                             teacherH5Player.dispose();
+                            teacherH5Player = null;
                         }
                     }
                 )
@@ -802,6 +803,7 @@
                     function () {
                         if (teacherFlashPlayer) {
                             teacherFlashPlayer.dispose();
+                            teacherFlashPlayer = null;
                         }
                     }
                 );
