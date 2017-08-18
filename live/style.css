@@ -1,0 +1,259 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 646px;
+    min-width: 1200px;
+    margin: 0 auto;
+    opacity: 0;
+    background: url("../class-panel-bg.jpg");
+
+}
+/*进度条样式*/
+#loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/*右边样式*/
+.right {
+    position: absolute;
+    width: 400px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background: #fff;
+}
+/*Flash 播放器*/
+#flash-player {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 400px;
+    height: 300px;
+    overflow: hidden;
+    border-top: 2px solid #fff;
+}
+#flash-player-user {
+    position: absolute;
+    left: 0;
+    bottom: 44px;
+    width: 400px;
+    height: 300px;
+    overflow: hidden;
+}
+
+/*播放器幕布*/
+#player-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #e6e6e6;
+}
+#player-screen-user {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #e6e6e6;
+}
+.picture {
+    margin: 100px 150px 100px 150px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    transition: all .8s ease-in-out;
+}
+.picture:hover {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+
+}
+/*Flash对象样式*/
+object {
+    width: 400px;
+    height: 300px;
+}
+
+
+.list-section {
+    position: absolute;
+    top: 0;
+    right: 400px;
+    width: 300px;
+    background: #fff;
+}
+/*列表样式*/
+.list {
+    width: 300px;
+    margin: 0 auto;
+}
+/*切换列表按钮样式*/
+.tab {
+    width: 100%;
+    height: 46px;
+}
+.tab-list {
+    display: inline-block;
+    width: 175px;
+    text-align: center;
+    line-height: 45px;
+    font-size: 12px;
+    color: #999;
+    float: right;
+    border-bottom: 1px solid #999;
+    cursor: pointer;
+}
+#btn-user-list {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#btn-message-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.tab-select {
+    color: #fa0;
+    border-bottom: 1px solid #fa0;
+}
+/*列表项样式*/
+.tab-item {
+    width: 100%;
+    overflow: hidden;
+}
+.tab-content {
+    position: relative;
+    width: 600px;
+    overflow: hidden;
+    transition: margin-left .2s ease-in-out;
+    -webkit-transition: margin-left .3s ease-in-out;
+    -o-transition: margin-left .5s ease-in-out;
+    -ms-transition: margin-left .5s ease-in-out;
+    -moz-transition: margin-left .5s ease-in-out;
+
+}
+/*用户列表样式*/
+#user-list {
+    position: absolute;
+    width: 300px;
+    right: 0;
+}
+/*消息列表样式*/
+.message-box {
+    position: absolute;
+    width: 300px;
+    left: 0;
+}
+#message-list {
+    position: relative;
+    width: 300px;
+}
+/*消息发送器样式*/
+#message-sender {
+    width: 286px;
+    height: 100px;
+    margin-left: 8px;
+}
+.bjy-length-hint {
+    margin-left: -15px;
+}
+/*左边样式*/
+.left {
+    position: absolute;
+    height: 850px;
+}
+.left-content {
+    position: relative;
+    margin: 0 auto;
+}
+/*白板样式*/
+#whiteboard {
+    position: relative;
+    width: 500px;
+    height: 350px;
+}
+/*弹幕样式*/
+#barrage {
+    position: absolute;
+    width: 500px;
+    height: 350px;
+    z-index: 999;
+    top: 0;
+}
+/*弹幕字体样式*/
+.bjy-barrage {
+    background-color: rgba(255,255,255,0);
+    color: white;
+    padding: 2px 4px;
+}
+/*弹幕控制条样式*/
+.barrage-tool {
+    position: absolute;
+    left: 45px;
+    bottom: 10px;
+    height: 30px;
+}
+#barrage-input {
+    border: 1px solid white;
+    padding: 2px;
+    color: #000;
+    outline: none;
+    background: #eee;
+}
+.form-inline > label,
+.form-inline > button {
+    margin-left: 5px;
+}
+#btn-send,
+#btn-open,
+#btn-close {
+    background: #eee;
+    border: 1px solid #eee;
+    color: width;
+    font-size: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+/*底部工具栏样式*/
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #313339;
+    color: #fff;
+}
+#setting {
+    width: 590px;
+    padding: 10px;
+    margin-left: 32px;
+}
+
+.icon-emotion:before {
+    color: #ffe1b3;
+}
+#menu-speak-apply {
+    margin-left: 15px;
+}
+
+
+
