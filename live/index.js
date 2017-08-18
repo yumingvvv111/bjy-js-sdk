@@ -58,7 +58,7 @@ $(document).ready(function () {
     var store = BJY.store;
     var Player = BJY.Player;
     var flash = Player.flash;
-    flash.pluginUrl = location.protocol + '//www.baijiacloud.com/js-sdk/0.0.423/player/extension/flash.swf';
+    flash.pluginUrl = location.protocol + '//www.baijiacloud.com/js-sdk/0.0.425/player/extension/flash.swf';
     flash.init();
     var teacherFlashPlayer;
     var userPlayer;
