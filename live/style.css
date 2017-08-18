@@ -14,7 +14,7 @@ body {
     min-width: 1200px;
     margin: 0 auto;
     opacity: 0;
-    background: url("../class-panel-bg.jpg");
+    background: url('./class-panel-bg.jpg');
 
 }
 /*进度条样式*/

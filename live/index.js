@@ -58,7 +58,7 @@ $(document).ready(function () {
     var store = BJY.store;
     var Player = BJY.Player;
     var flash = Player.flash;
-    flash.pluginUrl = location.protocol + '//www.baijiacloud.com/js-sdk/0.0.425/player/extension/flash.swf';
+    flash.pluginUrl = location.protocol + '//www.baijiacloud.com/js-sdk/0.0.423/player/extension/flash.swf';
     flash.init();
     var teacherFlashPlayer;
     var userPlayer;
@@ -96,7 +96,6 @@ $(document).ready(function () {
             eventEmitter.VIEW_RENDER_TRIGGER,
             function (event, data) {
                 // 服务器已准备就绪，开始初始化业务界面，进入直播页面
-
                 BJY.userStatus.watch(
                     BJY.store.get('user.number'),
                     '.screenStatus',
@@ -106,151 +105,138 @@ $(document).ready(function () {
                         }
                     }
                 );
-
                 // 加载直播需要的各种组件，包括播放器，白板，用户列表等等
-                eventEmitter
-                 .one(
-                    eventEmitter.VIEW_RENDER_TRIGGER,
-                    function (event, data) {
-                        // 创建用户列表组件
-
-                        userList = BJY.UserList.create({
-                            element: $('#user-list .placeholder'),
-                            renderUser: function (user, width, height) {
-                                return {
-                                    id: user.id,
-                                    name: user.name,
-                                    number: user.number,
-                                    // 头像需压缩
-                                    avatar: BJY.compressImage({
-                                        url: user.avatar,
-                                        width: width,
-                                        height: height
-                                    }),
-                                    avatar2x: BJY.compressImage({
-                                        url: user.avatar,
-                                        width: width * 2,
-                                        height: height * 2
-                                    }),
-                                    // 根据用户类型，配置角色的英文和本地语言
-                                    role: userRoleMap[user.type].en,
-                                    localRole: userRoleMap[user.type].cn
-                                }
-                            }
-                        });
-
-                        // 创建消息列表
-                        messageList = BJY.MessageList.create({
-                            element: $('#message-list .placeholder'),
-                            renderEmoji: function (name, url) {
-                                if (BJY.isAlicloudImage(url)) {
-                                    return '<img ondragstart="return false" src="'
-                                        + (url + '@100w_1e_1l.png')
-                                        + '" srcset="'
-                                        + (url + '@200w_1e_1l.png')
-                                        + ' 2x">';
-                                }
-                                return '<img ondragstart="return false" src="' + url + '">';
-                            },
-                            renderImage: function (url) {
-                                if (BJY.isAlicloudImage(url)) {
-                                    return '<img ondragstart="return false" src="'
-                                        + (url + '@100w_1e_1l.png')
-                                        + '" srcset="'
-                                        + (url + '@200w_1e_1l.png')
-                                        + ' 2x">';
-                                }
-                                return '<img ondragstart="return false" src="' + url + '">';
-                            },
-                            renderUser: function (user, width, height) {
-                                return {
-                                    id: user.id,
-                                    name: user.name,
-                                    number: user.number,
-                                    // 头像需压缩
-                                    avatar: BJY.compressImage({
-                                        url: user.avatar,
-                                        width: width,
-                                        height: height
-                                    }),
-                                    avatar2x: BJY.compressImage({
-                                        url: user.avatar,
-                                        width: width * 2,
-                                        height: height * 2
-                                    }),
-                                    // 根据用户类型，配置角色的英文和本地语言
-                                    role: userRoleMap[user.type].en,
-                                    localRole: userRoleMap[user.type].cn,
-                                }
-                            },
-                            loadDistance: 0
-                        });
-
-                        // 创建消息发送组件
-                        messageSender = BJY.MessageSender.create({
-                            element: $('#message-sender .placeholder'),
-                            canSendEmoji: true,
-                            multiline: true,
-                            messageMaxLength: 140,
-                            placeholder: '请输入...'
-                        });
-
-                        barrage = new BJY.Barrage({
-                            container: $('#barrage'),
-                            // 移动速度，每秒移动多少个像素
-                            speed: 100,
-                            // 最长可显示多少个字，超过这个字数的会过滤
-                            maxLength: 20,
-                            // 在 top - bottom 的区间出现弹幕
-                            top: 30,
-                            bottom: 30,
-                            // 轨道高度
-                            trackHeight: 30,
-                            // 是否只显示文本消息
-                            textOnly: false,
-                            // 如果需要自定义弹幕内容，可实现此方法
-                            renderContent: function (data) {
-                                return data.content;
-                            }
-                        });
-                        openBarrage();
-
-                        // 创建设置按钮
-                        var speakerMenu = BJY.SpeakerMenu.create({
-                            element: $('#menu-speaker'),
-                            canAdjustVolume: true,
-                            maxVolume: 100
-                        });
-
-                        var micMenu = BJY.MicMenu.create({
-                            element: $('#menu-mic'),
-                            maxVolume: 100
-                        });
-
-                        var cameraMenu = BJY.CameraMenu.create({
-                            element: $('#menu-camera'),
-                        });
-
-                        BJY.userSpeak.init();
-
-                        if (!store.get('class.isFree')) {
-                            var speakApplyMenu = BJY.SpeakApplyMenu.create({
-                            element: $('#menu-speak-apply')
-                        });
+                userList = BJY.UserList.create({
+                    element: $('#user-list .placeholder'),
+                    renderUser: function (user, width, height) {
+                        return {
+                            id: user.id,
+                            name: user.name,
+                            number: user.number,
+                            // 头像需压缩
+                            avatar: BJY.compressImage({
+                                url: user.avatar,
+                                width: width,
+                                height: height
+                            }),
+                            avatar2x: BJY.compressImage({
+                                url: user.avatar,
+                                width: width * 2,
+                                height: height * 2
+                            }),
+                            // 根据用户类型，配置角色的英文和本地语言
+                            role: userRoleMap[user.type].en,
+                            localRole: userRoleMap[user.type].cn
                         }
-                        // 文档白板
-                        BJY.whiteboard.init({
-                            element: $('#whiteboard .placeholder'),
-                            fit: 1 // 1 自适应  2 撑满容器
-                        });
-
-                        userPlayer = new BJY.Player({
-                            element: $('#flash-player-user'),
-                            user: BJY.store.get('user'),
-                            extension: flash
-                        });
                     }
-                );
+                });
+                // 创建消息列表
+                messageList = BJY.MessageList.create({
+                    element: $('#message-list .placeholder'),
+                    renderEmoji: function (name, url) {
+                        if (BJY.isAlicloudImage(url)) {
+                            return '<img ondragstart="return false" src="'
+                                + (url + '@100w_1e_1l.png')
+                                + '" srcset="'
+                                + (url + '@200w_1e_1l.png')
+                                + ' 2x">';
+                        }
+                        return '<img ondragstart="return false" src="' + url + '">';
+                    },
+                    renderImage: function (url) {
+                        if (BJY.isAlicloudImage(url)) {
+                            return '<img ondragstart="return false" src="'
+                                + (url + '@100w_1e_1l.png')
+                                + '" srcset="'
+                                + (url + '@200w_1e_1l.png')
+                                + ' 2x">';
+                        }
+                        return '<img ondragstart="return false" src="' + url + '">';
+                    },
+                    renderUser: function (user, width, height) {
+                        return {
+                            id: user.id,
+                            name: user.name,
+                            number: user.number,
+                            // 头像需压缩
+                            avatar: BJY.compressImage({
+                                url: user.avatar,
+                                width: width,
+                                height: height
+                            }),
+                            avatar2x: BJY.compressImage({
+                                url: user.avatar,
+                                width: width * 2,
+                                height: height * 2
+                            }),
+                            // 根据用户类型，配置角色的英文和本地语言
+                            role: userRoleMap[user.type].en,
+                            localRole: userRoleMap[user.type].cn,
+                        }
+                    },
+                    loadDistance: 0
+                });
+                // 创建消息发送组件
+                messageSender = BJY.MessageSender.create({
+                    element: $('#message-sender .placeholder'),
+                    canSendEmoji: true,
+                    multiline: true,
+                    messageMaxLength: 140,
+                    placeholder: '请输入...',
+                    emotionList: {
+                        emotionPerRow: 6,
+                        rowPerPage: 4,
+                    }
+                });
+                barrage = new BJY.Barrage({
+                    container: $('#barrage'),
+                    // 移动速度，每秒移动多少个像素
+                    speed: 100,
+                    // 最长可显示多少个字，超过这个字数的会过滤
+                    maxLength: 20,
+                    // 在 top - bottom 的区间出现弹幕
+                    top: 30,
+                    bottom: 30,
+                    // 轨道高度
+                    trackHeight: 30,
+                    // 是否只显示文本消息
+                    textOnly: false,
+                    // 如果需要自定义弹幕内容，可实现此方法
+                    renderContent: function (data) {
+                        return data.content;
+                    }
+                });
+                openBarrage();
+                // 创建设置按钮
+                var speakerMenu = BJY.SpeakerMenu.create({
+                    element: $('#menu-speaker'),
+                    canAdjustVolume: true,
+                    maxVolume: 100
+                });
+                var micMenu = BJY.MicMenu.create({
+                    element: $('#menu-mic'),
+                    maxVolume: 100
+                });
+                var cameraMenu = BJY.CameraMenu.create({
+                    element: $('#menu-camera'),
+                });
+                BJY.userSpeak.init();
+                if (!store.get('class.isFree')) {
+                    var speakApplyMenu = BJY.SpeakApplyMenu.create({
+                        element: $('#menu-speak-apply')
+                    });
+                }
+                // 文档白板
+                BJY.whiteboard.init({
+                    element: $('#whiteboard .placeholder'),
+                    fit: 1 // 1 自适应  2 撑满容器
+                });
+
+                userPlayer = new BJY.Player({
+                    element: $('#flash-player-user'),
+                    user: BJY.store.get('user'),
+                    extension: flash
+                });
             }
         )
         .on(
