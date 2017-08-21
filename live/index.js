@@ -376,7 +376,7 @@ $(document).ready(function () {
         // 如果是学生进教室，传学生的信息
         // number 必须确保是唯一的，如果不唯一，后进的用户会踢掉先进的用户
         user: {
-            number: query.user_number || '40721586',
+            number: query.user_number || '0',
             avatar: query.user_avatar || 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
             name: query.user_name || '太阳',
             type: '0'
