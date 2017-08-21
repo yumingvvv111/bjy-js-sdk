@@ -9,18 +9,25 @@ function layout () {
     $('#list-box').css('height', height);
     $('#user-list').css('height', height);
     $('#message-list').css('height', height - 100);
+
     $('#flash-player').css('height', (all - 46) / 2);
     $('#flash-player-user').css('height', (all - 46) / 2);
     $('object').css('height', (all - 46) / 2);
+
+    $('.picture').css('margin-top', ((all - 40) / 2 - 100) / 2 );
 
     $('.left').css('height', all - 44);
     var width = $(document).width();
     $('.left').css('width', width - 700);
 
 
-    $('.left-content').css('width', width - 700 -30);
-    $('#whiteboard').css('width', width - 700 -30);
-    $('#barrage').css('width', width - 700 -30);
+    $('#whiteboard').css('width', width - 700 -44);
+    $('#whiteboard').css('height', all -44 - 120);
+    $('#barrage').css('width', width - 700 -44);
+
+    var boardHeight = parseInt($('.bjy-container canvas').css('height'));
+    $('#barrage').css('height', boardHeight);
+    $('#barrage').css('top', 60 + (all - 44 - 120 - boardHeight) / 2);
 
 
 }
@@ -69,7 +76,6 @@ $(document).ready(function () {
         // logo URL 可自定义自己的加载 logo
         logoUrl: 'https://imgs.genshuixue.com/37797098_qsl3oz5g.jpg'
     });
-    layout();
 
     eventEmitter
         // 监听 loading 开始加载事件， one() 函数表示事件只处理一次，若需要一直监听请使用 on() 函数
@@ -237,6 +243,9 @@ $(document).ready(function () {
                     user: BJY.store.get('user'),
                     extension: flash
                 });
+
+                layout();
+
             }
         )
         .on(
@@ -317,27 +326,13 @@ $(document).ready(function () {
             eventEmitter.WINDOW_RESIZE,
             function () {
                 layout();
-                var height = $('.bjy-container canvas').css('height');
-                $('#whiteboard').css('height', height);
-                $('#barrage').css('height', height);
-
-                var all = $(document).height();
-
-                var top = all - parseInt(height) -44;
-                $('.left-content').css('margin-top', top / 2);
             }
         )
         .on(
             eventEmitter.WHITEBOARD_LAYOUT_CHANGE,
             function () {
                 // 重新设置白板的高度并让其居中
-                var height = $('.bjy-container canvas').css('height');
-                $('#whiteboard').css('height', height);
-                $('#barrage').css('height', height);
-
-                var all = $(window).height();
-                var top = all - parseInt(height) -44;
-                $('.left-content').css('margin-top', top / 2);
+                layout();
             }
         );
 

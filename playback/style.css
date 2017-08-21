@@ -44,11 +44,12 @@ body {
     height: 300px;
     overflow: hidden;
     border-bottom: 1px solid #fff;
+
 }
 #flash-player-user {
     position: absolute;
     left: 0;
-    bottom: 44px;
+    bottom: 40px;
     width: 400px;
     height: 300px;
     overflow: hidden;
@@ -73,9 +74,9 @@ body {
     background: #e6e6e6;
 }
 .picture {
-    margin-left: 150px;
     width: 100px;
     height: 100px;
+    margin-left: 150px;
     border-radius: 50%;
     transition: transform .8s ease-in-out;
 }
@@ -99,7 +100,7 @@ object {
     right: 400px;
     width: 300px;
     background: #fff;
-    bottom: 0;
+    bottom: 40px;
 }
 /*列表样式*/
 .list {
@@ -167,12 +168,6 @@ object {
 #message-list {
     position: relative;
     width: 300px;
-}
-/*消息发送器样式*/
-#message-sender {
-    width: 286px;
-    height: 100px;
-    margin-left: 8px;
 }
 .bjy-length-hint {
     margin-left: -15px;

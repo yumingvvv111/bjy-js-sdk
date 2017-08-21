@@ -25,6 +25,7 @@
         <script src="//www.baijiacloud.com/js-sdk/0.0.425/message/messageList/MessageList.js"></script>
         <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.425/message/messageSender/MessageSender.css">
         <script src="//www.baijiacloud.com/js-sdk/0.0.425/message/messageSender/MessageSender.js"></script>
+
         <script src="//www.baijiacloud.com/js-sdk/0.0.425/player/player.js"></script>
         <script src="//www.baijiacloud.com/js-sdk/0.0.425/player/core/Player.js"></script>
         <script src="//www.baijiacloud.com/js-sdk/0.0.425/player/extension/html.js"></script>
@@ -37,6 +38,9 @@
         <script src="//www.baijiacloud.com/js-sdk/0.0.425/whiteboard/whiteboard.js"></script>
         <script src="//www.baijiacloud.com/js-sdk/0.0.425/user/userPublish.js"></script>
         <script src="//www.baijiacloud.com/js-sdk/0.0.425/user/userStatus.js"></script>
+        <script src="//www.baijiacloud.com/js-sdk/0.0.425/playback/playback.js"></script>
+        <link href="//vjs.zencdn.net/5.19/video-js.min.css" rel="stylesheet">
+        <script src="//vjs.zencdn.net/5.19/video.min.js"></script>
     </head>
     <body>
 
@@ -48,6 +52,15 @@
             <div class="right">
                  <!-- 若需要使用 h5 播放器，请参考配置文档设置 -->
                 <div id="flash-player">
+                    <video id="bjy-player-teacher" class="video-js" controls preload="auto" width="400" height="300">
+                      <p class="vjs-no-js">
+                        To view this video please enable JavaScript, and consider upgrading to a
+                        web browser that
+                        <a href="http://videojs.com/html5-video-support/" target="_blank">
+                          supports HTML5 video
+                        </a>
+                      </p>
+                    </video>
                     <!-- 播放器幕布，为了好看，当未创建播放器时提供一个界面 -->
                     <div id="player-screen">
                         <img class="picture" src="./picture.jpg">
@@ -55,6 +68,15 @@
                 </div>
 
                 <div id="flash-player-user">
+                    <video id="bjy-player-user" class="video-js" controls preload="auto" width="400" height="300">
+                      <p class="vjs-no-js">
+                        To view this video please enable JavaScript, and consider upgrading to a
+                        web browser that
+                        <a href="http://videojs.com/html5-video-support/" target="_blank">
+                          supports HTML5 video
+                        </a>
+                      </p>
+                    </video>
                     <!-- 播放器幕布，为了好看，当未创建播放器时提供一个界面 -->
                     <div id="player-screen-user">
                         <img class="picture" src="./picture.jpg">
@@ -75,9 +97,6 @@
                             </div>
                             <div class="message-box">
                                 <div id="message-list" >
-                                    <div class="placeholder"></div>
-                                </div>
-                                <div id="message-sender">
                                     <div class="placeholder"></div>
                                 </div>
                             </div>
