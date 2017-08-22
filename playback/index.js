@@ -119,6 +119,18 @@ $(document).ready(function () {
             }
         )
         .on(
+            eventEmitter.PLAYBACK_SEEK_START,
+            function () {
+                 barrage.close();;
+            }
+        )
+        .on(
+            eventEmitter.PLAYBACK_SEEK_END,
+            function () {
+                 barrage.open();;
+            }
+        )
+        .on(
             eventEmitter.MEDIA_PUBLISH,
             function (event, data) {
                 // 主讲不做处理
@@ -186,10 +198,10 @@ $(document).ready(function () {
 
     // 初始化房间
     BJY.playback.init({
-        env: 'test',
-        token: 'test12345678',
+        env: 'production',
+        token: 'ynJkoEDZ4CSNcup-z1nfa15lHdm7UqraaJCtNUC4JQIVi23f7mqPcQ',
         class: {
-            id: '17071145500056'
+            id: '17080472746664'
         },
         user: {
             number: '13147056',
