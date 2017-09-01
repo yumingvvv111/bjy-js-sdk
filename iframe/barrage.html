@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>loading</title>
+    <link rel="stylesheet" type="text/css" href="../icomoon/style.css"/>
+    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.425/classroom/classroom.js"></script>
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.425/classroom/classroom.css">
+    <script src="//www.baijiacloud.com/js-sdk/0.0.425/barrage/Barrage.js"></script>
+    <script type="text/javascript">
+        var query = BJY.query;
+        var userRoleMap = { };
+        var config = BJY.config;
+        userRoleMap[ config.ROLE_TYPE_TEACHER ] = {
+            en: 'teacher',
+            cn: '老师'
+        };
+        userRoleMap[ config.ROLE_TYPE_ASSISTANT ] = {
+            en: 'assistant',
+            cn: '助教'
+        };
+        userRoleMap[ config.ROLE_TYPE_STUDENT ] = {
+            en: 'student',
+            cn: '学生'
+        };
+        userRoleMap[ config.ROLE_TYPE_GUEST ] = {
+            en: 'guest',
+            cn: '游客'
+        };
+
+        var barrage;
+        $(document).ready(function () {
+            var eventEmitter = BJY.eventEmitter;
+            eventEmitter.on(
+                    eventEmitter.VIEW_RENDER_TRIGGER,
+                    function () {
+                        barrage = new BJY.Barrage({
+                            container: $('#barrage'),
+                            // 移动速度，每秒移动多少个像素
+                            speed: 50,
+                            // 最长可显示多少个字，超过这个字数的会过滤
+                            maxLength: 20,
+                            // 在 top - bottom 的区间出现弹幕
+                            top: 30,
+                            bottom: 30,
+                            // 轨道高度
+                            trackHeight: 30,
+                            // 是否只显示文本消息
+                            textOnly: false,
+                            // 如果需要自定义弹幕内容，可实现此方法
+                            renderContent: function (data) {
+                                return '转换后的文字';
+                            }
+                        });
+                        openBarrage();
+                    }
+                );
+
+            // 初始化房间
+            BJY.init({
+                env: 'production',
+                sign: query.sign,
+                class: {
+                    id: query.room_id || '17062983320563',
+                },
+                // 当前进入教室的用户的信息
+                // 如果是老师进教室，传老师的信息
+                // 如果是学生进教室，传学生的信息
+                // number 必须确保是唯一的，如果不唯一，后进的用户会踢掉先进的用户
+                user: {
+                    number: query.user_number || '0',
+                    avatar: query.user_avatar || 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
+                    name: query.user_name || '太阳',
+                    type: '0'
+                }
+            });
+        })
+        var sendMessage = function () {
+            barrage.send(
+                $('#barrage-input').val()
+            );
+        }
+        var openBarrage = function () {
+            barrage.open();
+            $('.status').html('开').addClass('badge-success');
+            $('#btn-open').attr('disabled',"true");
+            $('#btn-close').removeAttr("disabled");
+            $('#btn-send').removeAttr("disabled");
+        }
+
+        var closeBarrage = function () {
+            barrage.close();
+            $('.status').html('关').removeClass('badge-success');
+            $('#btn-close').attr('disabled',"true");
+            $('#btn-send').attr('disabled',"true");
+            $('#btn-open').removeAttr("disabled");
+        }
+    </script>
+    <style type="text/css">
+        * {
+            outline: none;
+        }
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #barrage {
+            background-color: rgba(0,0,0,.3);
+            height: 400px;
+            position: relative;
+        }
+        .form-inline {
+            padding: 10px;
+        }
+        .form-inline > label,
+        .form-inline > button {
+            margin-left: 5px;
+        }
+        .bjy-barrage {
+            background-color: rgba(255,255,255,.3);
+            color: white;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .form-inline label {
+            display: inline-block;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            margin-bottom: 0px;
+        }
+        .btn-secondary {
+            color: rgb(41, 43, 44);
+            background-color: rgb(255, 255, 255);
+            border-color: rgb(204, 204, 204);
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            font-size: 12px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.15);
+            border-image: initial;
+            border-radius: 0.25rem;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: rgba(0,0,0,.2);
+        }
+        .badge-default {
+            background-color: rgb(99, 108, 114);
+        }
+        .badge-success {
+            background-color: rgb(92, 184, 92);
+        }
+        .badge-pill {
+            padding-right: 0.6em;
+            padding-left: 0.6em;
+            border-radius: 10rem;
+        }
+        .badge {
+            display: inline-block;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            padding: 0.25em 0.4em;
+            border-radius: 0.25rem;
+        }
+        .form-control {
+            display: inline-block;
+            font-size: 18px;
+            width: auto;
+            vertical-align: middle;
+        }
+        .btn:disabled {
+            background-color: #fff;
+            border-color: #ccc;
+            cursor: not-allowed;
+            opacity: .65;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-inline">
+        <input type="text" id="barrage-input" class="form-control">
+
+        <label>
+            当前状态：<small class="status badge badge-pill badge-default"></small>
+        </label>
+
+        <button id="btn-send" class="btn btn-secondary btn-sm" onclick="sendMessage()">
+            发送
+        </button>
+
+        <button id="btn-open" class="btn btn-secondary btn-sm" onclick="openBarrage()">
+            开启弹幕
+        </button>
+
+        <button id="btn-close" class="btn btn-secondary btn-sm" onclick="closeBarrage()">
+            关闭弹幕
+        </button>
+    </div>
+    <div id="barrage"></div>
+</body>
+
+</html>

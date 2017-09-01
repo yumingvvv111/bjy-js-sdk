@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>媒体播放器</title>
+    <link rel="stylesheet" href="http://localhost:8858/output/0.0.430/classroom/classroom.css">
+    <link rel="stylesheet" href="http://localhost:8858/output/0.0.430/mediaPlayer/mediaPlayer.css">
+    <link rel="stylesheet" href="../icomoon/style.css">
+    <style>
+
+    </style>
+</head>
+<body>
+
+    <div id="live-player">
+        <div class="placeholder">
+
+        </div>
+    </div>
+     <div id="media-player" ></div>
+    <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="http://localhost:8858/output/0.0.430/classroom/classroom.js"></script>
+    <script src="http://localhost:8858/output/0.0.430/cef/cef.js"></script>
+    <script src="http://localhost:8858/output/0.0.430/player/player.js"></script>
+    <script src="http://localhost:8858/output/0.0.430/player/core/Player.js"></script>
+    <script src="http://localhost:8858/output/0.0.430/player/extension/cef.js"></script>
+
+    <script src="http://localhost:8858/output/0.0.430/mediaPlayer/mediaPlayer.js"></script>
+    <script>
+        var query = BJY.query;
+        window.DEBUG = true;
+
+        BJY.init({
+            env: 'production',
+            sign: query.sign,
+            class: {
+                id: query.room_id || '17062983320563',
+            },
+            // 当前进入教室的用户的信息
+            // 如果是老师进教室，传老师的信息
+            // 如果是学生进教室，传学生的信息
+            // number 必须确保是唯一的，如果不唯一，后进的用户会踢掉先进的用户
+            user: {
+                number: query.user_number || '0',
+                avatar: query.user_avatar || 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
+                name: query.user_name || '太阳',
+                type: '0'
+            }
+        });
+
+        var cef = BJY.cef;
+        var store = BJY.store;
+        var eventEmitter = BJY.eventEmitter;
+
+        eventEmitter
+        .one(
+            eventEmitter.CLASSROOM_CONNECT_TRIGGER,
+            function (event, data) {
+                // cef.init().then(function () {
+                //     eventEmitter.trigger(
+                //         eventEmitter.CLASSROOM_CONNECT_TRIGGER,
+                //         data
+                //     );
+                // });
+                // return false;
+            }
+        )
+        .one(
+            eventEmitter.VIEW_RENDER_TRIGGER,
+            function (event, data) {
+                var element = $('#media-player');
+                var mediaPlayer = BJY.MediaPlayer.create({
+                    element: element,
+                    volume: 100,
+                    onCloseButtonClick: function () {
+                        // 使用结束后销毁对象
+                        mediaPlayer.destroy();
+                        // 移除父节点容器
+                        element.remove();
+                        mediaPlayer = null;
+                    },
+                    onMinimizeButtonClick: function () {
+                        // 隐藏父节点
+                        element.css('opacity', 0);
+                    }
+                });
+            }
+        );
+
+
+    </script>
+</body>
+</html>

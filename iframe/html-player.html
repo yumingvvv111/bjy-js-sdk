@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>loading</title>
+    <link rel="stylesheet" type="text/css" href="../icomoon/style.css"/>
+    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.425/classroom/classroom.js"></script>
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.425/classroom/classroom.css">
+    <script src="//www.baijiacloud.com/js-sdk/0.0.425/player/player.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.425/player/core/Player.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.425/player/extension/html.js"></script>
+    <script type="text/javascript">
+        var teacherH5Player;
+        var store = BJY.store;
+        var Player = BJY.Player;
+        var eventEmitter = BJY.eventEmitter;
+        var query = BJY.query;
+        var userRoleMap = { };
+        var config = BJY.config;
+        userRoleMap[ config.ROLE_TYPE_TEACHER ] = {
+            en: 'teacher',
+            cn: '老师'
+        };
+        userRoleMap[ config.ROLE_TYPE_ASSISTANT ] = {
+            en: 'assistant',
+            cn: '助教'
+        };
+        userRoleMap[ config.ROLE_TYPE_STUDENT ] = {
+            en: 'student',
+            cn: '学生'
+        };
+        userRoleMap[ config.ROLE_TYPE_GUEST ] = {
+            en: 'guest',
+            cn: '游客'
+        };
+
+
+        var playButton = $('#btn-play');
+        $(document).ready(function () {
+            var my = myBrowser();
+            if (my !== 'Safari') {
+                var element = $('<div style="position: absolute;top: 35%;left: 35.5%">该组件只支持 Safari 游览器</div>')
+                element.appendTo($('#h5-player'));
+                return ;
+            }
+            Player.html.init();
+            eventEmitter
+                .on(
+                    eventEmitter.TEACHER_MEDIA_ON,
+                    function () {
+                        if (!teacherH5Player) {
+                            teacherH5Player = new Player({
+                                element: $('#h5-player'),
+                                user: store.get('teacher'),
+                                extension: Player.html
+                            });
+                            playButton.removeClass('hidden');
+                        }
+                    }
+                )
+                .on(
+                    eventEmitter.TEACHER_ADD,
+                    function () {
+                        console.log('老师进入教室');
+                    }
+                )
+                .on(
+                    eventEmitter.TEACHER_REMOVE,
+                    function () {
+                        console.log('老师离开教室');
+                        if (teacherH5Player) {
+                            teacherH5Player.dispose();
+                            teacherH5Player = null;
+                        }
+                    }
+                )
+                .on(
+                    eventEmitter.HTML_VIDEO_LOAD_START,
+                    function () {
+                        console.log('正在加载视频');
+                    }
+                )
+                .on(
+                    eventEmitter.HTML_VIDEO_PLAY,
+                    function () {
+                        console.log('视频开始播放');
+                        playButton.addClass('hidden');
+                    }
+                )
+                .on(
+                    eventEmitter.HTML_VIDEO_PAUSE,
+                    function () {
+                        console.log('视频暂停');
+                        playButton.removeClass('hidden');
+                    }
+                )
+                .on(
+                    eventEmitter.HTML_VIDEO_LOAD_TIMEOUT,
+                    function () {
+                        console.log('视频加载超时');
+                        playButton.removeClass('hidden');
+                    }
+                )
+                .on(
+                    eventEmitter.HTML_VIDEO_LOAD_FAIL,
+                    function () {
+                        console.log('视频加载失败');
+                        playButton.removeClass('hidden');
+                    }
+                )
+                .on(
+                    eventEmitter.HTML_AUDIO_LOAD_START,
+                    function () {
+                        console.log('正在加载音频');
+                    }
+                )
+                .on(
+                    eventEmitter.HTML_AUDIO_PLAY,
+                    function () {
+                        console.log('音频开始播放');
+                        playButton.addClass('hidden');
+                    }
+                )
+                .on(
+                    eventEmitter.HTML_AUDIO_PAUSE,
+                    function () {
+                        console.log('音频暂停');
+                        playButton.removeClass('hidden');
+                    }
+                )
+                .on(
+                    eventEmitter.HTML_AUDIO_LOAD_TIMEOUT,
+                    function () {
+                        console.log('音频加载超时');
+                        playButton.removeClass('hidden');
+                    }
+                )
+                .on(
+                    eventEmitter.HTML_AUDIO_LOAD_FAIL,
+                    function () {
+                        console.log('音频加载失败');
+                        playButton.removeClass('hidden');
+                    }
+                );
+            // 初始化房间
+            BJY.init({
+                env: 'production',
+                sign: query.sign,
+                class: {
+                    id: query.room_id || '17062983320563',
+                },
+                // 当前进入教室的用户的信息
+                // 如果是老师进教室，传老师的信息
+                // 如果是学生进教室，传学生的信息
+                // number 必须确保是唯一的，如果不唯一，后进的用户会踢掉先进的用户
+                user: {
+                    number: query.user_number || '0',
+                    avatar: query.user_avatar || 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
+                    name: query.user_name || '太阳',
+                    type: '0'
+                }
+            });
+        })
+        var h5Play = function () {
+            if (teacherH5Player.videoOn || teacherH5Player.audioOn) {
+                teacherH5Player.playAVClose();
+            }
+            teacherH5Player.playAV(
+                store.get('teacher.videoOn')
+            );
+        }
+        function myBrowser(){
+            var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+            var isOpera = userAgent.indexOf("Opera") > -1;
+            if (isOpera) {
+                return "Opera"
+            }; //判断是否Opera浏览器
+            if (userAgent.indexOf("Firefox") > -1) {
+                return "FF";
+            } //判断是否Firefox浏览器
+            if (userAgent.indexOf("Chrome") > -1){
+                return "Chrome";
+            }
+            if (userAgent.indexOf("Safari") > -1) {
+                return "Safari";
+            } //判断是否Safari浏览器
+            if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
+                return "IE";
+            }; //判断是否IE浏览器
+        }
+    </script>
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #h5-player {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #999;
+        }
+        #btn-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -33px;
+            margin-top: -19px;
+            padding: 4px 8px;
+            border-radius: 5px;
+            background-color: #fff;
+            z-index: 99;
+        }
+        #btn-play:focus {
+            outline: none;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="h5-player">
+        <button id="btn-play" class="btn btn-secondary hidden" onclick="h5Play()">
+            播放
+        </button>
+    </div>
+</body>
+
+</html>

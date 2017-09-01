@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>loading</title>
+    <link rel="stylesheet" type="text/css" href="../icomoon/style.css"/>
+    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.425/classroom/classroom.js"></script>
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.425/classroom/classroom.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.425/message/messageSender/MessageSender.css">
+    <script src="//www.baijiacloud.com/js-sdk/0.0.425/message/messageSender/MessageSender.js"></script>
+    <script type="text/javascript">
+        var query = BJY.query;
+        var userRoleMap = { };
+        var config = BJY.config;
+        userRoleMap[ config.ROLE_TYPE_TEACHER ] = {
+            en: 'teacher',
+            cn: '老师'
+        };
+        userRoleMap[ config.ROLE_TYPE_ASSISTANT ] = {
+            en: 'assistant',
+            cn: '助教'
+        };
+        userRoleMap[ config.ROLE_TYPE_STUDENT ] = {
+            en: 'student',
+            cn: '学生'
+        };
+        userRoleMap[ config.ROLE_TYPE_GUEST ] = {
+            en: 'guest',
+            cn: '游客'
+        };
+        $(document).ready(function () {
+            var eventEmitter = BJY.eventEmitter;
+            eventEmitter.on(
+                    eventEmitter.VIEW_RENDER_TRIGGER,
+                    function () {
+                        BJY.MessageSender.create({
+                            element: $('#message-sender .placeholder1'),
+                            canSendEmoji: true,
+                            multiline: true,
+                            placeholder: '请输入...',
+                            messageMaxLength: 140,
+                            emotionList: {
+                                emotionPerRow: 6,
+                                rowPerPage: 2,
+                            }
+                        });
+                        var data = [];
+                        for (var i = 0; i < 100; i++) {
+                            var name = '捂脸' + i;
+                            if (i < 10) {
+                                name = '捂脸' + '0' + i;
+                            }
+                            data.push({
+                                key: 'wulian' + i,
+                                name: name,
+                                url: 'http://img.gsxservice.com/0baijiacloud/emotion/gsx/v1/dk.png'
+                            });
+                        }
+                        BJY.MessageSender.create({
+                            element: $('#message-sender .placeholder2'),
+                            canSendEmoji: true,
+                            multiline: true,
+                            messageMaxLength: 140,
+                            placeholder: '请输入...',
+                            emotionList: {
+                                data: data,
+                                emotionPerRow: 4,
+                                rowPerPage: 4,
+                            }
+                        });
+                        BJY.MessageSender.create({
+                            element: $('#message-sender .placeholder3'),
+                            canSendEmoji: true,
+                            multiline: false,
+                            messageMaxLength: 0,
+                            placeholder: '请输入...',
+                            emotionList: {
+                                data: data,
+                                emotionPerRow: 4,
+                                rowPerPage: 4,
+                            }
+                        });
+                    }
+                );
+            // 初始化房间
+            BJY.init({
+                env: 'production',
+                sign: query.sign,
+                class: {
+                    id: query.room_id || '17062983320563',
+                },
+                // 当前进入教室的用户的信息
+                // 如果是老师进教室，传老师的信息
+                // 如果是学生进教室，传学生的信息
+                // number 必须确保是唯一的，如果不唯一，后进的用户会踢掉先进的用户
+                user: {
+                    number: query.user_number || '0',
+                    avatar: query.user_avatar || 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
+                    name: query.user_name || '太阳',
+                    type: '0'
+                }
+            });
+        })
+    </script>
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #message-sender {
+            width: 100%;
+            height: 100%;
+            padding: 0 20px;
+            position: relative;
+            box-sizing: border-box;
+            color: #999;
+            margin-top: 50px;
+        }
+        .message-sender-title {
+            margin: 10px 0;
+        }
+        .icon-emotion:before {
+            color: #ffe1b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+   <div id="message-sender">
+        <div class="message-sender-title">
+            表情列表读百家云后台配置（表情按钮的图标需自己实现）
+        </div>
+        <div class="placeholder1"></div>
+        <div class="message-sender-title">
+            表情列表完全自定义（表情按钮的图标需自己实现）
+        </div>
+        <div class="placeholder2"></div>
+        <div class="message-sender-title">
+            手机聊天框（表情按钮的图标需自己实现，还需要自己把垂直布局改成水平布局）
+        </div>
+        <div class="placeholder3"></div>
+    </div>
+</body>
+
+</html>

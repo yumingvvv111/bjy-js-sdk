@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>loading</title>
+    <link rel="stylesheet" type="text/css" href="../icomoon/style.css"/>
+    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="//www.baijiacloud.com/js-sdk/0.0.425/classroom/classroom.js"></script>
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.425/classroom/classroom.css">
+    <link rel="stylesheet" href="//www.baijiacloud.com/js-sdk/0.0.425/whiteboard/whiteboard.css">
+    <script src="//www.baijiacloud.com/js-sdk/0.0.425/whiteboard/whiteboard.js"></script>
+    <script type="text/javascript">
+        var query = BJY.query;
+        var pageData = BJY.data.page;
+        var userRoleMap = { };
+        var config = BJY.config;
+        userRoleMap[ config.ROLE_TYPE_TEACHER ] = {
+            en: 'teacher',
+            cn: '老师'
+        };
+        userRoleMap[ config.ROLE_TYPE_ASSISTANT ] = {
+            en: 'assistant',
+            cn: '助教'
+        };
+        userRoleMap[ config.ROLE_TYPE_STUDENT ] = {
+            en: 'student',
+            cn: '学生'
+        };
+        userRoleMap[ config.ROLE_TYPE_GUEST ] = {
+            en: 'guest',
+            cn: '游客'
+        };
+
+        $(document).ready(function () {
+            var eventEmitter = BJY.eventEmitter;
+            eventEmitter
+                .on(
+                    eventEmitter.VIEW_RENDER_TRIGGER,
+                    function () {
+                        // 调用 whiteboard
+                        var whiteBoard = BJY.whiteboard.init({
+                            element: $('#whiteboard .placeholder'),
+                            //填充模式： 1 自适应  2 撑满容器
+                            fit: 1
+                        });
+                    }
+                )
+                .on(
+                    eventEmitter.PAGE_CHANGE_START,
+                    function (e, data) {
+                        var currentPage = pageData.getClientPage();
+                        var maxPage = pageData.getMaxPage();
+
+                        $('.total-page').text(maxPage);
+                        $('.current-page').text(currentPage);
+
+                        if (currentPage > 1) {
+                            $('.icon-chevron-left').addClass('hasPage')
+                                .removeAttr('disabled');
+                        }
+                        else {
+                             $('.icon-chevron-left').removeClass('hasPage')
+                                .attr('disabled', 'true');
+                        }
+
+                        if (currentPage < maxPage) {
+                            $('.icon-chevron-right').addClass('hasPage')
+                                .removeAttr('disabled');
+                        }
+                        else {
+                             $('.icon-chevron-right').removeClass('hasPage')
+                                .attr('disabled', 'true');
+                        }
+                    }
+                );
+            // 初始化房间
+            BJY.init({
+                env: 'production',
+                sign: query.sign,
+                class: {
+                    id: query.room_id || '17062983320563',
+                },
+                // 当前进入教室的用户的信息
+                // 如果是老师进教室，传老师的信息
+                // 如果是学生进教室，传学生的信息
+                // number 必须确保是唯一的，如果不唯一，后进的用户会踢掉先进的用户
+                user: {
+                    number: query.user_number || '0',
+                    avatar: query.user_avatar || 'http://img.gsxservice.com/30517_djgkb6i6.jpeg',
+                    name: query.user_name || '太阳',
+                    type: '0'
+                }
+            });
+
+            // 白板工具事件
+            $('.icon-chevron-left').on('click', function () {
+                eventEmitter.trigger(
+                        eventEmitter.PAGE_PREV_TRIGGER
+                    );
+            });
+            $('.icon-chevron-right').on('click', function () {
+                eventEmitter.trigger(
+                        eventEmitter.PAGE_NEXT_TRIGGER
+                    );
+            });
+
+            $('#input-page').bind('keypress',function(event){
+                if(event.keyCode == "13") {
+                    var page = parseInt($('#input-page').val());
+                    if (page < 1 || page > pageData.getMaxPage()) {
+                        alert('页码不在可用范围！');
+                        return ;
+                    }
+                    eventEmitter.trigger(
+                        eventEmitter.PAGE_CHANGE_TRIGGER,
+                        {
+                            page: page
+                        }
+                    );
+                }
+            });
+        })
+    </script>
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #whiteboard {
+            width: 100%;
+            height: 450px;
+        }
+        .whiteboard-tool {
+            position: relative;
+            width: 200px;
+            margin: 24px auto;
+            color: #999;
+        }
+        .icon-chevron-left,
+        .icon-chevron-right {
+            font-size: 23px;
+            position: absolute;
+            cursor: pointer;
+        }
+        .icon-chevron-left {
+            left: -90px;
+            top: 2px;
+        }
+        .icon-chevron-right {
+            left: -30px;
+            top: 2px;
+        }
+        .hasPage {
+            color: #000;
+        }
+        #input-page {
+            width: 25px;
+            height: 20px;
+            font-size: 12px;
+            outline: none;
+            margin-left: 7px;
+        }
+        .current-page {
+            color: #000;
+            display: inline-block;
+            width: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="whiteboard">
+        <div class="placeholder"></div>
+    </div>
+    <div class="whiteboard-tool">
+        <i class="icon-chevron-left hasPage"></i>
+        <i class="icon-chevron-right"></i>
+        <span class="current-page">4</span>
+        <span class="split-line">/</span>
+        <span class="total-page">10</span>
+        <input type="text" name="page" id="input-page">
+    </div>
+</body>
+
+</html>
