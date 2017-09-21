@@ -199,9 +199,9 @@ $(document).ready(function () {
     // 初始化房间
     BJY.playback.init({
         env: 'production',
-        token: 'ynJkoEDZ4CSNcup-z1nfa15lHdm7UqraaJCtNUC4JQIVi23f7mqPcQ',
+        token: 'XN8s6Q96zz-zpWBbD0hWAD7cnriB5VHyX3AQ46RxEXMcDgnKW417Xw',
         class: {
-            id: '17080472746664'
+            id: '17090772738090'
         },
         user: {
             number: '13147056',
@@ -211,6 +211,9 @@ $(document).ready(function () {
         }
     })
     .then(function (data) {
+        console.log('11111');
+        console.log(data);
+
         $('#loading').remove();
         $('#main').css('opacity', 1);
 

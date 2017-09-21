@@ -244,9 +244,9 @@ object {
     color: #fff;
 }
 #setting {
-    width: 590px;
     padding: 10px;
     margin-left: 32px;
+    display: inline-block;
 }
 
 .icon-emotion:before {
@@ -254,6 +254,50 @@ object {
 }
 #menu-speak-apply {
     margin-left: 15px;
+}
+
+.whiteboard-tool {
+    position: absolute;
+    right: 20px;
+    bottom: 13px;
+    color: #999;
+}
+.icon-chevron-left,
+.icon-chevron-right {
+    font-size: 23px;
+    position: absolute;
+    cursor: pointer;
+}
+.icon-chevron-left {
+    left: -90px;
+    top: 2px;
+}
+.icon-chevron-right {
+    left: -30px;
+    top: 2px;
+}
+.hasPage {
+    color: white;
+}
+#input-page {
+    width: 30px;
+    height: 25px;
+    font-size: 12px;
+    outline: none;
+    margin-left: 7px;
+}
+.current-page {
+    color: white;
+    display: inline-block;
+    width: 10px;
+}
+
+#third-push {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 400px;
 }
 
 

@@ -429,3 +429,9 @@
 .icon-back:before {
     content: "\e903";
 }
+.icon-arrow-right:before {
+    content: "\ea34"
+}
+.icon-arrow-left:before {
+    content: "\ea38"
+}

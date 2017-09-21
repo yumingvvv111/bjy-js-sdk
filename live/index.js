@@ -36,6 +36,7 @@ var query = BJY.query;
 // 给自己的用户类型设置中英文术语
 var userRoleMap = { };
 var config = BJY.config;
+var pageData = BJY.data.page
 userRoleMap[ config.ROLE_TYPE_TEACHER ] = {
     en: 'teacher',
     cn: '老师'
@@ -65,7 +66,7 @@ $(document).ready(function () {
     var store = BJY.store;
     var Player = BJY.Player;
     var flash = Player.flash;
-    flash.pluginUrl = location.protocol + '//www.baijiacloud.com/js-sdk/0.0.425/player/extension/flash.swf';
+    flash.pluginUrl = location.protocol + '//www.baijiacloud.com/js-sdk/latest/player/extension/flash.swf';
     flash.init();
     var teacherFlashPlayer;
     var userPlayer;
@@ -78,6 +79,18 @@ $(document).ready(function () {
     });
 
     eventEmitter
+        .on(
+            eventEmitter.CLASSROOM_CONNECT_FAIL,
+            function () {
+                alert('网络已断开，请检查网络连接或者刷新页面重新进入房间');
+            }
+        )
+        .on(
+            eventEmitter.LOGIN_CONFLICT,
+            function () {
+                alert('你已被踢，请确认用户 number 是否唯一或者刷新页面重新进入房间');
+            }
+        )
         // 监听 loading 开始加载事件， one() 函数表示事件只处理一次，若需要一直监听请使用 on() 函数
         .one(
             eventEmitter.LOADING_PANEL_START,
@@ -330,9 +343,44 @@ $(document).ready(function () {
         )
         .on(
             eventEmitter.WHITEBOARD_LAYOUT_CHANGE,
-            function () {
+            function (e, data) {
                 // 重新设置白板的高度并让其居中
+                console.log(data);
                 layout();
+            }
+        )
+        .on(
+            eventEmitter.CLIENT_PAGE_CHANGE,
+            function () {
+                console.log('客户端翻页');
+            }
+        )
+        .on(
+            eventEmitter.PAGE_CHANGE_START,
+            function (e, data) {
+                var currentPage = pageData.getClientPage();
+                var maxPage = pageData.getMaxPage();
+
+                $('.total-page').text(maxPage);
+                $('.current-page').text(currentPage);
+
+                if (currentPage > 1) {
+                    $('.icon-chevron-left').addClass('hasPage')
+                        .removeAttr('disabled');
+                }
+                else {
+                     $('.icon-chevron-left').removeClass('hasPage')
+                        .attr('disabled', 'true');
+                }
+
+                if (currentPage < maxPage) {
+                    $('.icon-chevron-right').addClass('hasPage')
+                        .removeAttr('disabled');
+                }
+                else {
+                     $('.icon-chevron-right').removeClass('hasPage')
+                        .attr('disabled', 'true');
+                }
             }
         );
 
@@ -406,4 +454,32 @@ $(document).ready(function () {
     btnClose.on('click', function () {
         closeBarrage();
     })
+
+    // 白板工具事件
+    $('.icon-chevron-left').on('click', function () {
+        eventEmitter.trigger(
+                eventEmitter.PAGE_PREV_TRIGGER
+            );
+    });
+    $('.icon-chevron-right').on('click', function () {
+        eventEmitter.trigger(
+                eventEmitter.PAGE_NEXT_TRIGGER
+            );
+    });
+
+    $('#input-page').bind('keypress',function(event){
+        if(event.keyCode == "13") {
+            var page = parseInt($('#input-page').val());
+            if (page < 1 || page > pageData.getMaxPage()) {
+                alert('页码不在可用范围！');
+                return ;
+            }
+            eventEmitter.trigger(
+                eventEmitter.PAGE_CHANGE_TRIGGER,
+                {
+                    page: page
+                }
+            );
+        }
+    });
 })
