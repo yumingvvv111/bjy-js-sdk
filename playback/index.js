@@ -199,9 +199,9 @@ $(document).ready(function () {
     // 初始化房间
     BJY.playback.init({
         env: 'production',
-        token: 'XN8s6Q96zz-zpWBbD0hWAD7cnriB5VHyX3AQ46RxEXMcDgnKW417Xw',
+        token: 'h7SYwi1gs7xNV8ralNcYMmtbTxbxG8pCsJTdjls6NhL92yXkv67pBg',
         class: {
-            id: '17090772738090'
+            id: '17091893802171'
         },
         user: {
             number: '13147056',
