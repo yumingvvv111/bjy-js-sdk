@@ -1,0 +1,173 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    opacity: 0;
+}
+/*进度条样式*/
+#loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/*视频样式*/
+.video {
+    position: relative;
+    width: 100%;
+    background: #fff;
+}
+/*h5 播放器*/
+#h5-player {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    border-bottom: 1px solid #fff;
+}
+
+/*播放器幕布*/
+#player-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #e6e6e6;
+}
+.picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    transition: transform .8s ease-in-out;
+}
+.picture:hover {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+
+}
+
+.list-section {
+    position: absolute;
+    width: 100%;
+    background: #fff;
+    bottom: 0;
+    z-index: 9;
+}
+/*列表样式*/
+.list {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+/*切换列表按钮样式*/
+.tab {
+    width: 100%;
+    height: 46px;
+}
+.tab-list {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    line-height: 45px;
+    font-size: 12px;
+    color: #999;
+    float: right;
+    border-bottom: 1px solid #999;
+    cursor: pointer;
+}
+#btn-user-list {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#btn-message-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.tab-select {
+    color: #fa0;
+    border-bottom: 1px solid #fa0;
+}
+/*列表项样式*/
+.tab-item {
+    width: 100%;
+    position: absolute;
+    top: 46px;
+    bottom: 0;
+    overflow: hidden;
+}
+.tab-content {
+    position: relative;
+    width: 200%;
+    height: 100%;
+    overflow: hidden;
+    transition: margin-left .2s ease-in-out;
+    -webkit-transition: margin-left .3s ease-in-out;
+    -o-transition: margin-left .5s ease-in-out;
+    -ms-transition: margin-left .5s ease-in-out;
+    -moz-transition: margin-left .5s ease-in-out;
+
+}
+/*用户列表样式*/
+#user-list {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    right: 0;
+}
+/*消息列表样式*/
+.message-box {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 0;
+}
+#message-list {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 100px;
+}
+/*消息发送器样式*/
+#message-sender {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+}
+.bjy-length-hint {
+    margin-left: -15px;
+}
+
+/*弹幕样式*/
+#barrage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+/*弹幕字体样式*/
+.bjy-barrage {
+    background-color: rgba(0,0,0,0.3);
+    color: white;
+    padding: 2px 16px;
+    font-size: 16px;
+    border-radius: 15px;
+}
