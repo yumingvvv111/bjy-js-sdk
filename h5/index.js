@@ -1,8 +1,13 @@
+function isIOS () {
+    var u = navigator.userAgent;
+    return !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+}
 function layout () {
     var width = $(window).width();
 
     $('.video').css('height', width * 0.75);
-    $('#btn-play').css('top', width * 0.75 * 0.5);
+
+    $('#play').css('left', width / 2 - 40);
 
     $('.list-section').css('top', width * 0.75);
 }
@@ -43,7 +48,8 @@ $(document).ready(function () {
     var Player = BJY.Player;
     var  html = Player.html;
     html.init();
-    var teacherFlashPlayer;
+    var teacherH5Player;
+    var playButton = $('#play');
 
     layout();
 
@@ -205,13 +211,27 @@ $(document).ready(function () {
                     $('.list-section').css('top', width * 0.75);
                     $('.video').css('display', 'block');
                 });
+
+                if (isIOS) {
+                    playButton.removeClass('hidden');
+                    playButton.on('click', function () {
+                        // 如果当前播放器正在播放，先关掉播放器
+                        if (teacherH5Player.videoOn || teacherH5Player.audioOn) {
+                            teacherH5Player.playAVClose();
+                        }
+                        // 播放视频
+                        teacherH5Player.playAV(
+                            store.get('teacher.videoOn')
+                        );
+                    });
+                }
             }
         )
         .on(
             eventEmitter.TEACHER_MEDIA_ON,
             function () {
-                if (!teacherFlashPlayer) {
-                    teacherFlashPlayer = new Player({
+                if (!teacherH5Player) {
+                    teacherH5Player = new Player({
                         element: $('#h5-player'),
                         user: store.get('teacher'),
                         extension: html
@@ -223,11 +243,89 @@ $(document).ready(function () {
         .on(
             eventEmitter.TEACHER_REMOVE,
             function () {
-                if (teacherFlashPlayer) {
-                    teacherFlashPlayer.dispose();
-                    teacherFlashPlayer = null;
+                if (teacherH5Player) {
+                    teacherH5Player.dispose();
+                    teacherH5Player = null;
                     $('#player-screen').show();
                 }
+            }
+        )
+        .on(
+            // 正在加载视频事件
+            eventEmitter.HTML_VIDEO_LOAD_START,
+            function () {
+                console.log('正在加载视频');
+            }
+        )
+        .on(
+            // 视频开始播放事件
+            eventEmitter.HTML_VIDEO_PLAY,
+            function () {
+                console.log('视频开始播放');
+                playButton.addClass('hidden');
+            }
+        )
+        .on(
+            // 视频暂停事件
+            eventEmitter.HTML_VIDEO_PAUSE,
+            function () {
+                console.log('视频暂停');
+                playButton.removeClass('hidden');
+            }
+        )
+        .on(
+            // 视频加载超时事件
+            eventEmitter.HTML_VIDEO_LOAD_TIMEOUT,
+            function () {
+                console.log('视频加载超时');
+                playButton.removeClass('hidden');
+            }
+        )
+        .on(
+            // 视频加载失败事件
+            eventEmitter.HTML_VIDEO_LOAD_FAIL,
+            function () {
+                console.log('视频加载失败');
+                playButton.removeClass('hidden');
+            }
+        )
+        .on(
+            // 正在加载音频事件
+            eventEmitter.HTML_AUDIO_LOAD_START,
+            function () {
+                console.log('正在加载音频');
+            }
+        )
+        .on(
+            // 音频开始播放事件
+            eventEmitter.HTML_AUDIO_PLAY,
+            function () {
+                console.log('音频开始播放');
+                playButton.addClass('hidden');
+            }
+        )
+        .on(
+            // 音频暂停事件
+            eventEmitter.HTML_AUDIO_PAUSE,
+            function () {
+                console.log('音频暂停');
+                playButton.removeClass('hidden');
+            }
+        )
+        .on(
+            // 音频加载超时事件
+            eventEmitter.HTML_AUDIO_LOAD_TIMEOUT,
+            function () {
+                console.log('音频加载超时');
+                playButton.removeClass('hidden');
+            }
+        )
+        .on(
+            // 音频加载失败事件
+            eventEmitter.HTML_AUDIO_LOAD_FAIL,
+            function () {
+                console.log('音频加载失败');
+                playButton.removeClass('hidden');
             }
         );
 
