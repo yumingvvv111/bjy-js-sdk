@@ -171,12 +171,11 @@ body {
     font-size: 16px;
     border-radius: 15px;
 }
-/*#h5-player,*/
-.video {
-    background: #000;
-}
 .hidden {
     display: none;
+}
+.video {
+    background: #000;
 }
 #play {
     position: absolute;

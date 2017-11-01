@@ -47,6 +47,7 @@ $(document).ready(function () {
     var store = BJY.store;
     var Player = BJY.Player;
     var  html = Player.html;
+    html.showControls = true;
     html.init();
     var teacherH5Player;
     var playButton = $('#play');
