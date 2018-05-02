@@ -1,4 +1,4 @@
-# 百家云 SDK
+# baijiayun SDK
 
 最新版本：0.0.490
 
